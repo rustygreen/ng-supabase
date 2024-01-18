@@ -1,0 +1,25 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2020", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@ng-supabase/bootstrap": ["libs/bootstrap/src/index.ts"],
+      "@ng-supabase/core": ["libs/core/src/index.ts"],
+      "@ng-supabase/material": ["libs/material/src/index.ts"],
+      "@ng-supabase/primeng": ["libs/primeng/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

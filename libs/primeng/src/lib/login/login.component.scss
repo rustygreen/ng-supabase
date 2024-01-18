@@ -1,0 +1,17 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+input {
+  min-width: 260px;
+}
+
+.divider-txt {
+  color: #6f7681;
+}
+
+.idp-icon {
+  width: 18px;
+}

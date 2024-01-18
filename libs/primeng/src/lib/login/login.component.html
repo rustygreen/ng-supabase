@@ -1,0 +1,134 @@
+@if(title){
+<h1>{{ title }}</h1>
+}
+
+<!-- Loading overlay. -->
+@if(loggingIn | async){
+<supabase-loading-overlay>
+  <h4>Logging in. Please wait...</h4>
+</supabase-loading-overlay>
+}
+
+<!-- Wait -->
+@if(wait){
+<p-fieldset>
+  <ng-template pTemplate="header">
+    <div class="flex align-items-center gap-2 px-2">
+      <i [ngClass]="wait.icon"></i>
+      <span class="font-bold">{{ wait.title }}</span>
+    </div>
+  </ng-template>
+  <div>
+    <p class="m-0" [innerHTML]="wait.message"></p>
+    <p class="mt-4 text-right">
+      <small
+        >Didn't receive it?
+        <a href="" (click)="login(); $event.preventDefault()">send again</a> |
+        <a href="" (click)="wait = null; $event.preventDefault()"
+          >cancel</a
+        ></small
+      >
+    </p>
+  </div>
+</p-fieldset>
+
+} @else {
+<!-- Login form -->
+<form [formGroup]="form" (ngSubmit)="login()">
+  <section class="mt-4">
+    <span class="flex flex-column gap-2 p-input-icon-left">
+      <label for="email">Email address</label>
+
+      <span class="p-input-icon-left">
+        <i class="pi pi-envelope"></i>
+        <input
+          id="email"
+          type="email"
+          pInputText
+          class="w-full"
+          autocomplete="off"
+          formControlName="email"
+          (keydown.enter)="login()"
+        />
+      </span>
+    </span>
+
+    @if(form.value.usePassword){
+    <span class="flex flex-column gap-2 p-input-icon-left mt-2">
+      <label for="password">Password</label>
+      <span class="p-input-icon-left">
+        <i class="pi pi-lock"></i>
+        <input
+          id="password"
+          type="password"
+          class="w-full"
+          autocomplete="off"
+          pInputText
+          formControlName="password"
+          (keydown.enter)="login()"
+        />
+      </span>
+    </span>
+    }
+  </section>
+
+  <section class="flex mt-4">
+    <span class="flex align-items-center gap-1">
+      <p-checkbox
+        label="Remember me"
+        formControlName="rememberMe"
+        [binary]="true"
+      >
+      </p-checkbox>
+    </span>
+
+    <span class="flex-auto"></span>
+
+    @if(form.value.usePassword){
+    <a href="">Forgot password?</a>
+    }@else{
+    <a href="" (click)="showLoginWithPassword($event)">Login with password</a>
+    }
+  </section>
+
+  <!-- Login button -->
+  <div class="w-full mt-4">
+    <p-button
+      styleClass="w-full"
+      [label]="form.value.usePassword ? 'Login' : 'Next'"
+      [disabled]="form.invalid || form.disabled"
+      (click)="login()"
+    ></p-button>
+  </div>
+
+  <!-- Error message -->
+  @if(messages.length){
+  <p-messages [enableService]="false" [closable]="true" [value]="messages">
+  </p-messages>
+  }
+
+  <!-- Socials -->
+  @if(hasSocials){
+  <p-divider align="center">
+    <span class="divider-txt">or login with</span>
+  </p-divider>
+
+  <section class="socials grid">
+    @for(social of socialItems; track social){
+    <div class="col text-center">
+      <p-button
+        styleClass="w-full"
+        [outlined]="true"
+        [label]="social.title"
+        severity="secondary"
+      >
+        @if(social.icon){
+        <img [src]="social.icon" label="Logo" class="mr-2 idp-icon" />
+        }
+      </p-button>
+    </div>
+    }
+  </section>
+  }
+</form>
+}

@@ -1,0 +1,171 @@
+<ng-supabase-toolbar (showSettings)="showSettings()"></ng-supabase-toolbar>
+
+<p-toast></p-toast>
+<p-sidebar position="right" [(visible)]="showSettingsSidebar">
+  <h3>Supabase API Settings</h3>
+  <ng-template pTemplate="content">
+    <ng-supabase-settings></ng-supabase-settings>
+  </ng-template>
+</p-sidebar>
+
+<main class="mx-auto">
+  <section>
+    <p-fieldset legend="Getting Started">
+      <p class="m-0">
+        The purpose of this demo site is to demonstrate the usage of the
+        <a href="https://github.com/rustygreen/ng-supabase" target="_blank"
+          >ng-supabase</a
+        >
+        library. "ng-supabase" is a library that provides various components for
+        interacting with the supabase API - such as logging in, registering an
+        account, logging out, changing password, etc. The goal of this project
+        is to replace the boilerplate code necessary to setup an Angular
+        application to use ng-supabase.
+      </p>
+
+      <ol>
+        <li>
+          Create a
+          <a href="https://supabase.com/dashboard" target="_blank"
+            >Supabase project</a
+          >
+        </li>
+        <li>
+          Configure the supabase API URL and key (<a
+            href=""
+            (click)="showSettings($event)"
+            >set here</a
+          >
+          |
+          <a
+            href="https://supabase.com/docs/reference/javascript/initializing#initializing"
+            target="_blank"
+            >docs here</a
+          >)
+        </li>
+        <li>Explore the available components (sign up, login, etc.)</li>
+      </ol>
+    </p-fieldset>
+  </section>
+
+  <h1>Session Info</h1>
+  <h3>
+    Status:
+    <p-chip
+      [label]="supabase.isLoggedIn ? 'Logged in' : 'Not logged in'"
+    ></p-chip>
+  </h3>
+
+  @if(supabase.isLoggedIn){
+  <h3>
+    Display Name:
+    <p-chip label="{{ supabase.displayName | async }}"></p-chip>
+  </h3>
+  } @if(supabase.isLoggedIn){
+  <div>
+    <p-button
+      label="Log out"
+      class="mr-3"
+      icon="pi pi-sign-out"
+      severity="danger"
+      (click)="signOut()"
+    ></p-button>
+
+    <p-button
+      label="Set password"
+      class="mr-3"
+      icon="pi pi-lock"
+      severity="secondary"
+      routerLink="/primeng/set-password"
+    ></p-button>
+  </div>
+  }@else{
+  <h1>
+    <i class="pi pi-prime text-2xl text-400"></i>
+    PrimeNG Components
+  </h1>
+  <div class="mb-3">
+    <p-button
+      label="Sign up for account"
+      icon="pi pi-user-plus"
+      severity="success"
+      routerLink="/primeng/register"
+    ></p-button>
+
+    <p-button
+      label="Login (via route change)"
+      class="ml-3"
+      routerLink="/primeng/login"
+      icon="pi pi-sign-in"
+    ></p-button>
+
+    <p-button
+      class="ml-3"
+      label="Login with popup window"
+      severity="secondary"
+      icon="pi pi-external-link"
+      [disabled]="true"
+    ></p-button>
+  </div>
+
+  <h1>
+    <i class="pi pi-google text-2xl text-400"></i>
+    Material Components
+  </h1>
+  <div class="mb-3">
+    <p-button
+      label="Sign up for account"
+      icon="pi pi-user-plus"
+      severity="success"
+      routerLink="/material/register"
+      [disabled]="true"
+    ></p-button>
+
+    <p-button
+      label="Login (via route change)"
+      class="ml-3"
+      routerLink="/material/login"
+      icon="pi pi-sign-in"
+      [disabled]="true"
+    ></p-button>
+
+    <p-button
+      class="ml-3"
+      label="Login with popup window"
+      severity="secondary"
+      icon="pi pi-external-link"
+      [disabled]="true"
+    ></p-button>
+  </div>
+
+  <h1>
+    <i class="pi pi-twitter text-2xl text-400"></i>
+    Bootstrap Components
+  </h1>
+  <div class="mb-3">
+    <p-button
+      label="Sign up for account"
+      icon="pi pi-user-plus"
+      severity="success"
+      routerLink="/bootstrap/register"
+      [disabled]="true"
+    ></p-button>
+
+    <p-button
+      label="Login (via route change)"
+      class="ml-3"
+      routerLink="/bootstrap/login"
+      icon="pi pi-sign-in"
+      [disabled]="true"
+    ></p-button>
+
+    <p-button
+      class="ml-3"
+      label="Login with popup window"
+      severity="secondary"
+      icon="pi pi-external-link"
+      [disabled]="true"
+    ></p-button>
+  </div>
+  }
+</main>

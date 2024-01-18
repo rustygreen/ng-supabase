@@ -1,0 +1,15 @@
+<p-toolbar>
+  <div class="p-toolbar-group-start">
+    <img class="mr-2" src="/assets/supabase-logo.png" alt="Supabase logo" />
+    <h1 class="m-0 mr-2">ng-supabase</h1>
+  </div>
+
+  <div class="p-toolbar-group-end">
+    <p-button
+      icon="pi pi-cog"
+      [rounded]="true"
+      severity="secondary"
+      (click)="showSettings.emit()"
+    ></p-button>
+  </div>
+</p-toolbar>
