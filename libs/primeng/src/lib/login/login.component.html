@@ -84,11 +84,22 @@
 
     <span class="flex-auto"></span>
 
-    @if(form.value.usePassword){
-    <a href="">Forgot password?</a>
-    }@else{
-    <a href="" (click)="showLoginWithPassword($event)">Login with password</a>
-    }
+    <div class="flex align-items-center">
+      @if(form.value.usePassword){
+      <a href="" (click)="showForgotPassword($event)">Forgot password?</a>
+      <p-button
+        icon="pi pi-ellipsis-v"
+        severity="secondary"
+        [rounded]="true"
+        [text]="true"
+        (click)="menu.toggle($event)"
+      ></p-button>
+
+      <p-menu #menu appendTo="body" [model]="menuItems" [popup]="true"></p-menu>
+      }@else{
+      <a href="" (click)="showLoginWithPassword($event)">Login with password</a>
+      }
+    </div>
   </section>
 
   <!-- Login button -->
@@ -118,9 +129,10 @@
     <div class="col text-center">
       <p-button
         styleClass="w-full"
+        severity="secondary"
         [outlined]="true"
         [label]="social.title"
-        severity="secondary"
+        (click)="loginWithSocial(social.value)"
       >
         @if(social.icon){
         <img [src]="social.icon" label="Logo" class="mr-2 idp-icon" />

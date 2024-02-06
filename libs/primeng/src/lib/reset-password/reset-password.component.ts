@@ -1,37 +1,37 @@
 // Angular.
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import { signal, Component, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 
 // 3rd party.
 import { Message } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
-import { MessageModule } from 'primeng/message';
-import { DividerModule } from 'primeng/divider';
-import { PasswordModule } from 'primeng/password';
-import { MessagesModule } from 'primeng/messages';
 import { AuthError } from '@supabase/supabase-js';
+import { MessagesModule } from 'primeng/messages';
+import { InputTextModule } from 'primeng/inputtext';
 
 // @ng-supabase.
-import { SetPasswordComponent as CoreSetPasswordComponent } from '@ng-supabase/core';
+import { ResetPasswordComponent as CoreResetPasswordComponent } from '@ng-supabase/core';
+
+// Local.
+import { WaitMessageComponent } from '../wait-message/wait-message.component';
 
 @Component({
-  selector: 'supabase-set-password',
+  selector: 'supabase-reset-password',
   standalone: true,
   imports: [
     CommonModule,
     ButtonModule,
-    DividerModule,
-    PasswordModule,
-    MessageModule,
     MessagesModule,
+    InputTextModule,
     ReactiveFormsModule,
+    WaitMessageComponent,
   ],
-  templateUrl: './set-password.component.html',
-  styleUrl: './set-password.component.scss',
+  templateUrl: './reset-password.component.html',
+  styleUrl: './reset-password.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SetPasswordComponent extends CoreSetPasswordComponent {
+export class ResetPasswordComponent extends CoreResetPasswordComponent {
   messages = signal<Message[]>([]);
 
   override onError(error: AuthError): void {

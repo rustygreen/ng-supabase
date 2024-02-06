@@ -12,6 +12,7 @@ import {
   ChangeDetectorRef,
   ChangeDetectionStrategy,
 } from '@angular/core';
+import { UrlTree } from '@angular/router';
 import {
   FormGroup,
   Validators,
@@ -25,11 +26,10 @@ import { Subscription, debounceTime } from 'rxjs';
 import { AuthError, User } from '@supabase/supabase-js';
 
 // Local.
+import { RouteService } from '../route.service';
 import { LogService } from '../logging/log.service';
 import { SupabaseConfig } from '../supabase-config';
 import { SupabaseService } from '../supabase.service';
-import { RouteService } from '../route.service';
-import { UrlTree } from '@angular/router';
 import { NotifyService } from '../notify/notify.service';
 
 @Component({
@@ -107,6 +107,7 @@ export class SetPasswordComponent implements OnInit, OnDestroy {
         this.errorMessage.set(error.message);
         this.log.error(`Failed to save password. ${error.message}`);
         this.onError(error);
+        return;
       }
 
       this.log.info(`Set password for '${data?.user?.email || ''}'`);

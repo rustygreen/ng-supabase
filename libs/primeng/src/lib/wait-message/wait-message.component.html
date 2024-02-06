@@ -1,0 +1,29 @@
+@if(message){
+<p-fieldset>
+  <ng-template pTemplate="header">
+    <div class="flex align-items-center gap-2 px-2">
+      <i [ngClass]="message.icon"></i>
+      <span class="font-bold">{{ message.title }}</span>
+    </div>
+  </ng-template>
+  <div>
+    <p class="m-0" [innerHTML]="message.message"></p>
+    <p class="mt-4 text-right">
+      <small
+        >{{ mainTitle }}
+        @if(showSendAgain){
+        <a href="" (click)="sendAgain.emit(); $event.preventDefault()">{{
+          sendAgainLabel
+        }}</a>
+        } @if(showSendAgain && showCancel){ | } @if (showCancel){
+        <a href="" (click)="cancel.emit(); $event.preventDefault()">{{
+          cancelLabel
+        }}</a>
+        }
+      </small>
+    </p>
+  </div>
+</p-fieldset>
+} @if(subTitle){
+<h4 class="text-500 text-center">{{ subTitle }}</h4>
+}

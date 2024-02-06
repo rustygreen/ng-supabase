@@ -20,4 +20,8 @@ import { ToolbarModule } from 'primeng/toolbar';
 })
 export class ToolbarComponent {
   @Output() showSettings = new EventEmitter<void>();
+
+  openGitHub(): void {
+    window.open('https://github.com/rustygreen/ng-supabase');
+  }
 }

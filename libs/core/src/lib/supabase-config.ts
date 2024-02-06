@@ -20,7 +20,18 @@ export interface SupabaseConfigProperties {
   login?: LoginConfigProperties;
   logging?: LogConfig;
   setPassword?: SetPasswordProperties;
+  routes?: Partial<ComponentRoutes>;
 }
+
+interface ComponentRoutes {
+  main: string;
+  login: string;
+  register: string;
+  setPassword: string;
+  resetPassword: string;
+}
+
+type SocialLoginFn = (social: SocialLogIn) => boolean | void;
 
 interface LoginConfigProperties {
   title?: string;
@@ -30,6 +41,7 @@ interface LoginConfigProperties {
   socialIconsRoot?: string;
   rememberMeStorageKey?: string;
   redirectTo?: string | string[] | UrlTree | null | undefined;
+  onSocialLogin?: SocialLoginFn;
 }
 
 interface ApiInfo {
@@ -63,6 +75,7 @@ export class SupabaseLoginConfig implements LoginConfigProperties {
   socialLoginItems: SocialLoginItem[] = [];
   redirectTo?: string | string[] | UrlTree | null | undefined;
   rememberMeStorageKey = 'supabase.login.info';
+  onSocialLogin?: SocialLoginFn;
 
   constructor(init?: Partial<SupabaseLoginConfig>) {
     Object.assign(this, init);
@@ -88,8 +101,16 @@ export class SupabaseConfig {
   logging?: LogConfig;
   mainRoute = '/';
   setPassword: SetPasswordConfig;
+  routes: ComponentRoutes = {
+    main: '/',
+    login: '/login',
+    register: '/register',
+    setPassword: '/set-password',
+    resetPassword: '/reset-password',
+  };
 
   constructor(init: SupabaseConfigProperties) {
+    Object.assign(this.routes, init.routes);
     this.logging = init.logging;
     this.setPassword = new SetPasswordConfig(init.setPassword);
     this.login = new SupabaseLoginConfig(init.login);

@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MaterialComponent } from './material.component';
+import { WaitMessageComponent } from './wait-message.component';
 
-describe('MaterialComponent', () => {
-  let component: MaterialComponent;
-  let fixture: ComponentFixture<MaterialComponent>;
+describe('WaitMessageComponent', () => {
+  let component: WaitMessageComponent;
+  let fixture: ComponentFixture<WaitMessageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MaterialComponent],
+      imports: [WaitMessageComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(MaterialComponent);
+    fixture = TestBed.createComponent(WaitMessageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

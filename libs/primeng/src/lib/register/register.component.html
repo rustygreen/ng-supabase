@@ -1,0 +1,50 @@
+@if(title){
+<h1>{{ title }}</h1>
+}
+
+<!-- Wait -->
+@if(wait()){
+<supabase-wait-message
+  [message]="wait()"
+  [showCancel]="false"
+  subTitle="You can close this window"
+  (sendAgain)="resetPassword()"
+></supabase-wait-message>
+
+} @else {
+<!-- Login form -->
+<form [formGroup]="form" (ngSubmit)="resetPassword()">
+  <section class="mt-4">
+    <span class="flex flex-column gap-2 p-input-icon-left">
+      <label for="email">Email address</label>
+
+      <span class="p-input-icon-left">
+        <i class="pi pi-envelope"></i>
+        <input
+          id="email"
+          type="email"
+          pInputText
+          class="w-full"
+          autocomplete="off"
+          formControlName="email"
+          (keydown.enter)="resetPassword()"
+        />
+      </span>
+    </span>
+  </section>
+
+  <!-- Login button -->
+  <div class="w-full mt-4">
+    <p-button
+      styleClass="w-full"
+      label="Sign up"
+      [disabled]="form.invalid || form.disabled"
+      [loading]="sendingReset()"
+      (click)="resetPassword()"
+    ></p-button>
+  </div>
+
+  <!-- Error message -->
+  <p-messages [value]="messages()" [enableService]="false"> </p-messages>
+</form>
+}

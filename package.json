@@ -1,6 +1,6 @@
 {
   "name": "@ng-supabase/source",
-  "version": "0.0.0",
+  "version": "1.0.0-rc.1",
   "license": "MIT",
   "scripts": {
     "nx": "nx",

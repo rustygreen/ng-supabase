@@ -20,18 +20,13 @@ import { Subject } from 'rxjs';
 import { Provider } from '@supabase/supabase-js';
 
 // Local.
+import { WaitMessage } from '../wait-message';
 import { RouteService } from '../route.service';
 import { LogService } from '../logging/log.service';
 import { SupabaseConfig } from '../supabase-config';
 import { SupabaseService } from '../supabase.service';
 import { SocialLogIn, SocialLoginItem } from './social-login';
 import { PersistentStorageService } from '../storage/persistent-storage.service';
-
-interface WaitMessage {
-  icon?: string;
-  title: string;
-  message: string;
-}
 
 @Component({
   selector: 'supabase-login',
@@ -94,12 +89,18 @@ export class LoginComponent implements OnInit {
     event?.preventDefault();
     this.form.controls.usePassword.setValue(true);
     this.form.controls.password.setValidators([Validators.required]);
+    this.revalidateAllControls();
   }
 
   showLoginWithEmail(event?: MouseEvent): void {
     event?.preventDefault();
     this.form.controls.usePassword.setValue(false);
     this.form.controls.password.setValidators([]);
+    this.revalidateAllControls();
+  }
+
+  showForgotPassword(event?: MouseEvent): void {
+    event?.preventDefault();
   }
 
   login(): void {
@@ -113,11 +114,28 @@ export class LoginComponent implements OnInit {
   }
 
   async loginWithSocial(social: SocialLogIn): Promise<void> {
-    const { data, error } = await this.supabase.client.auth.signInWithOAuth({
+    const result = this.config.login.onSocialLogin?.(social);
+    if (result === false) {
+      return;
+    }
+
+    const { error } = await this.supabase.client.auth.signInWithOAuth({
       provider: social as Provider,
     });
 
-    console.log(data, error);
+    if (error) {
+      this.log.debug(
+        `Unable to login with social login '${social}'. ${error.message}`
+      );
+      this.errorMessage.next(error.message);
+      return;
+    }
+  }
+
+  protected revalidateAllControls(): void {
+    Object.values(this.form.controls).forEach((control) =>
+      control.updateValueAndValidity()
+    );
   }
 
   protected async loginWithPassword(): Promise<void> {

@@ -10,7 +10,8 @@ import {
 
 // 3rd party.
 import { Subscription } from 'rxjs';
-import { Message } from 'primeng/api';
+import { MenuItem, Message } from 'primeng/api';
+import { MenuModule } from 'primeng/menu';
 import { ButtonModule } from 'primeng/button';
 import { DividerModule } from 'primeng/divider';
 import { CheckboxModule } from 'primeng/checkbox';
@@ -29,6 +30,7 @@ import { LoadingOverlayComponent } from '../loading-overlay/loading-overlay.comp
   selector: 'supabase-login',
   standalone: true,
   imports: [
+    MenuModule,
     CommonModule,
     ButtonModule,
     DividerModule,
@@ -49,6 +51,13 @@ export class LoginComponent
   implements OnInit, OnDestroy
 {
   messages: Message[] = [];
+  menuItems: MenuItem[] = [
+    {
+      label: 'Login with email',
+      icon: 'pi pi-envelope',
+      command: () => this.showLoginWithEmail(),
+    },
+  ];
 
   private errorMsgSubscription = Subscription.EMPTY;
 
