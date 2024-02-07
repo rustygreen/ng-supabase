@@ -1,6 +1,11 @@
+// Angular.
+import { RouterTestingModule } from '@angular/router/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ResetPasswordComponent } from './reset-password.component';
+
+// Local.
 import { SupabaseConfig } from '../supabase-config';
+import { SupabaseService } from '../supabase.service';
+import { ResetPasswordComponent } from './reset-password.component';
 
 describe('ResetPasswordComponent', () => {
   let component: ResetPasswordComponent;
@@ -8,7 +13,7 @@ describe('ResetPasswordComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ResetPasswordComponent],
+      imports: [ResetPasswordComponent, RouterTestingModule],
       providers: [
         {
           provide: SupabaseConfig,
@@ -16,6 +21,10 @@ describe('ResetPasswordComponent', () => {
             apiKey: 'some-key',
             apiUrl: 'mock://localhost/supabase',
           }),
+        },
+        {
+          provide: SupabaseService,
+          useValue: {},
         },
       ],
     }).compileComponents();

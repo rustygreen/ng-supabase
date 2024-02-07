@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SetPasswordComponent } from './set-password.component';
 import { SupabaseConfig } from '../supabase-config';
 import { RouterTestingModule } from '@angular/router/testing';
+import { SupabaseService } from '../supabase.service';
 
 describe('SetPasswordComponent', () => {
   let component: SetPasswordComponent;
@@ -17,6 +18,10 @@ describe('SetPasswordComponent', () => {
             apiKey: 'some-key',
             apiUrl: 'mock://localhost/supabase',
           }),
+        },
+        {
+          provide: SupabaseService,
+          useValue: {},
         },
       ],
     }).compileComponents();

@@ -1,7 +1,11 @@
+// Angular.
+import { RouterTestingModule } from '@angular/router/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+// Local.
 import { LoginComponent } from './login.component';
 import { SupabaseConfig } from '../supabase-config';
+import { SupabaseService } from '../supabase.service';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -9,7 +13,7 @@ describe('LoginComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LoginComponent],
+      imports: [LoginComponent, RouterTestingModule],
       providers: [
         {
           provide: SupabaseConfig,
@@ -17,6 +21,10 @@ describe('LoginComponent', () => {
             apiKey: 'some-key',
             apiUrl: 'mock://localhost/supabase',
           }),
+        },
+        {
+          provide: SupabaseService,
+          useValue: {},
         },
       ],
     }).compileComponents();
