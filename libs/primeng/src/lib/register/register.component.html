@@ -8,12 +8,12 @@
   [message]="wait()"
   [showCancel]="false"
   subTitle="You can close this window"
-  (sendAgain)="resetPassword()"
+  (sendAgain)="register()"
 ></supabase-wait-message>
 
 } @else {
 <!-- Login form -->
-<form [formGroup]="form" (ngSubmit)="resetPassword()">
+<form [formGroup]="form" (ngSubmit)="register()">
   <section class="mt-4">
     <span class="flex flex-column gap-2 p-input-icon-left">
       <label for="email">Email address</label>
@@ -27,7 +27,7 @@
           class="w-full"
           autocomplete="off"
           formControlName="email"
-          (keydown.enter)="resetPassword()"
+          (keydown.enter)="register()"
         />
       </span>
     </span>
@@ -39,8 +39,8 @@
       styleClass="w-full"
       label="Sign up"
       [disabled]="form.invalid || form.disabled"
-      [loading]="sendingReset()"
-      (click)="resetPassword()"
+      [loading]="working()"
+      (click)="register()"
     ></p-button>
   </div>
 

@@ -7,7 +7,14 @@
     "ng": "nx",
     "start": "nx serve",
     "serve": "nx serve",
-    "start:demo": "nx serve --project=demo"
+    "stylelint": "stylelint",
+    "start:demo": "nx serve --project=demo",
+    "lint:all": "nx run-many -t lint && stylelint -- **/*.scss",
+    "lint:style": "stylelint -- **/*.scss",
+    "lint:style:fix": "stylelint -- **/*.scss --fix",
+    "test": "nx test",
+    "test:all": "npm run nx -- run-many -t test",
+    "test:affected": "nx affected -t lint --base=main --head=HEAD --parallel=5 && stylelint -- **/*.scss --fix"
   },
   "private": true,
   "dependencies": {
@@ -28,6 +35,10 @@
     "primeicons": "^6.0.1",
     "primeng": "^17.3.0",
     "rxjs": "~7.8.0",
+    "stylelint": "^16.2.1",
+    "stylelint-config-standard-scss": "^13.0.0",
+    "stylelint-order": "^6.0.4",
+    "stylelint-scss": "^6.1.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.0"
   },

@@ -29,6 +29,7 @@ interface ComponentRoutes {
   register: string;
   setPassword: string;
   resetPassword: string;
+  userProfile?: string;
 }
 
 type SocialLoginFn = (social: SocialLogIn) => boolean | void;
