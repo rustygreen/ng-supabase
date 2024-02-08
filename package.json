@@ -9,10 +9,12 @@
     "serve": "nx serve",
     "stylelint": "stylelint",
     "start:demo": "nx serve --project=demo",
+    "lint:ci": "npm run lint:all",
     "lint:all": "nx run-many -t lint && stylelint -- **/*.scss",
     "lint:style": "stylelint -- **/*.scss",
     "lint:style:fix": "stylelint -- **/*.scss --fix",
     "test": "nx test",
+    "test:ci": "npm run test:all",
     "test:all": "npm run nx -- run-many -t test",
     "test:affected": "nx affected -t lint --base=main --head=HEAD --parallel=5 && stylelint -- **/*.scss --fix"
   },
