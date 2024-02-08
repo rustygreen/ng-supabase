@@ -33,7 +33,7 @@ jobs:
         run: npm run build:ci
 
       - name: Archive build
-        if: success() && github.event_name != 'pull_request's
+        if: success() && github.event_name != 'pull_request'
         uses: actions/upload-artifact@v4
         with:
           name: github-pages
