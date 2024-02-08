@@ -78,6 +78,7 @@ npx nx generate @nx/angular:library --name=UI_LIB_NAME --buildable=true --direct
 
 To generate a new release, use the following steps:
 
-1. Run `npm run nx -- release --skip-publish` locally. This will create a commit with the version and changelog updates, then create a tag for the new version.
-2. Push the changes (including the new tag) to the remote repository with `git push && git push --tags`.
-3. The publish workflow will automatically trigger and publish the packages to the npm registry.
+1. Run `npm run nx -- release --skip-publish` locally. This will create a commit with the version and changelog updates
+2. Create a tag for the new version `git tag <tagname>`.
+3. Push the changes (including the new tag) to the remote repository with `git push && git push --tags`.
+4. The publish workflow will automatically trigger and publish the packages to the npm registry.

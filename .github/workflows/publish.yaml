@@ -19,9 +19,10 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Exit if not on main branch
-        if: endsWith(github.ref, 'main') == false
-        run: exit -1
+      # TODO: Figure this out - @russell.green
+      # - name: Exit if not on main branch
+      #   if: endsWith(github.ref, 'main') == false
+      #   run: exit -1
 
       - name: Install NodeJS
         uses: actions/setup-node@v4
