@@ -6,14 +6,16 @@
   <h1 align="center">ng-supabase</h1>
 </a>
 
-  <p align="center">
+<p align="center">
   An Angular component library for your <a href="https://supabase.com/" target="_blank">Supabase</a> project!
-  </p>
+</p>
 
-[![npm version](https://badge.fury.io/js/@ng-supabase%2Fcore.svg)](https://badge.fury.io/js/@ng-supabase%2Fcore)
-![NPM Downloads](https://img.shields.io/npm/dt/%40ng-supabase%2Fcore)
-[![Build Status](https://github.com/rustygreen/ng-supabase/actions/workflows/ci.yaml/badge.svg?branch=main)](https://github.com/rustygreen/ng-supabase/actions/workflows/ci.yaml/badge.svg?branch=main)
-[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/rustygreen/ng-supabase)
+<p align="center">
+  [![npm version](https://badge.fury.io/js/@ng-supabase%2Fcore.svg)](https://badge.fury.io/js/@ng-supabase%2Fcore)
+  ![NPM Downloads](https://img.shields.io/npm/dt/%40ng-supabase%2Fcore)
+  [![Build Status](https://github.com/rustygreen/ng-supabase/actions/workflows/ci.yaml/badge.svg?branch=main)](https://github.com/rustygreen/ng-supabase/actions/workflows/ci.yaml/badge.svg?branch=main)
+  [![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/rustygreen/ng-supabase)
+</p>
 
 ---
 
@@ -26,6 +28,10 @@ Coming soon...
 Coming soon...
 
 ## Getting Started
+
+Coming soon...
+
+## Components
 
 Coming soon...
 
