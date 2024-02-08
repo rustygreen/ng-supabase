@@ -34,10 +34,10 @@ jobs:
         run: npm ci
 
       - name: Print environment info
-        run: npm nx -- report
+        run: npm run nx -- report
 
       - name: Publish packages
-        run: npm nx -- release publish
+        run: npm run nx -- release publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
           NPM_CONFIG_PROVENANCE: true
