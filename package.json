@@ -5,6 +5,8 @@
   "scripts": {
     "nx": "nx",
     "ng": "nx",
+    "build": "nx build",
+    "build:ci": "nx run-many -t build --parallel=5 --configuration=production",
     "start": "nx serve",
     "serve": "nx serve",
     "stylelint": "stylelint",
@@ -14,8 +16,8 @@
     "lint:style": "stylelint -- **/*.scss",
     "lint:style:fix": "stylelint -- **/*.scss --fix",
     "test": "nx test",
-    "test:ci": "npm run test:all",
-    "test:all": "npm run nx -- run-many -t test",
+    "test:ci": "npm run test:all --codeCoverage",
+    "test:all": "nx run-many -t test",
     "test:affected": "nx affected -t lint --base=main --head=HEAD --parallel=5 && stylelint -- **/*.scss --fix"
   },
   "private": true,

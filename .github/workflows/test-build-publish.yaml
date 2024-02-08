@@ -21,22 +21,18 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build
-        run: npm run build:ci
+      - name: Lint
+        run: npm run lint:ci
 
       - name: Test
         run: npm run test:ci
+
+      - name: Build All Projects
+        run: npm run build:ci
 
       - name: Archive build
         if: success()
         uses: actions/upload-artifact@v4
         with:
-          name: deploy_dist
+          name: dist
           path: dist
-
-      - name: Archive code coverage result
-        if: success()
-        uses: actions/upload-artifact@v4
-        with:
-          name: deploy_coverage
-          path: coverage
