@@ -1,6 +1,40 @@
-# ![Supabase](/apps/demo/src/assets/supabase-logo.png) ng-supabase
+<p align="center">
+  <img src="/apps/demo/src/assets/supabase-logo.png" alt="Logo">
+</p>
 
-### Coming soon....
+<a href="https://github.com/rustygreen/ng-supabase">
+  <h1 align="center">ng-supabase</h1>
+</a>
+
+  <p align="center">
+  An Angular component library for your <a href="https://supabase.com/" target="_blank">Supabase</a> project!
+  </p>
+
+[![npm version](https://badge.fury.io/js/@ng-supabase%2Fcore.svg)](https://badge.fury.io/js/@ng-supabase%2Fcore)
+![NPM Downloads](https://img.shields.io/npm/dt/%40ng-supabase%2Fcore)
+[![Build Status](https://github.com/rustygreen/ng-supabase/actions/workflows/ci.yaml/badge.svg?branch=main)](https://github.com/rustygreen/ng-supabase/actions/workflows/ci.yaml/badge.svg?branch=main)
+[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/rustygreen/ng-supabase)
+
+---
+
+## Features
+
+Coming soon...
+
+## Docs
+
+Coming soon...
+
+## Getting Started
+
+Coming soon...
+
+<!-- <p align="center">
+An Angular 17+ library for <a href="https://supabase.com/" target="_blank">Supabase</a> projects. The purpose of this library is to simplify and speed up development for Angular projects that use Supabase. This project consists of components specifically designed
+
+powered AOT compatible device detector that helps to identify browser, os and other useful information regarding the device using the app. The processing is based on user-agent. This library was built at <a href="https://github.com/KoderLabs">KoderLabs</a>, which is one of the best places I've worked at ❤️
+
+</p> -->
 
 <!-- <a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
 
@@ -83,3 +117,5 @@ To generate a new release, use the following steps:
 3. Create a tag for the new version `git tag <tagname>`.
 4. Push the changes (including the new tag) to the remote repository with `git push && git push --tags`.
 5. The publish workflow will automatically trigger and publish the packages to the npm registry.
+
+_see more on these steps [here](https://nx.dev/recipes/nx-release/publish-in-ci-cd)_
