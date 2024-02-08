@@ -1,4 +1,5 @@
-name: Test build and publish library
+name: Test, lint, and build libraries
+
 on:
   push:
     branches:
@@ -6,6 +7,7 @@ on:
   pull_request:
     branches:
     - main
+
 jobs:
   Test-and-Build:
     runs-on: ubuntu-latest
@@ -16,7 +18,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20.x'
+          node-version: 20
 
       - name: Install dependencies
         run: npm ci
@@ -29,10 +31,3 @@ jobs:
 
       - name: Build All Projects
         run: npm run build:ci
-
-      - name: Archive build
-        if: success()
-        uses: actions/upload-artifact@v4
-        with:
-          name: dist
-          path: dist

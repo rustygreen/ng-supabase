@@ -71,3 +71,13 @@ Create new UI library
 ```bash
 npx nx generate @nx/angular:library --name=UI_LIB_NAME --buildable=true --directory=libs/bootstrap --publishable=true --changeDetection=OnPush --importPath=@ng-supabase/UI_LIB_NAME --prefix=supabase --projectNameAndRootFormat=as-provided --style=scss --no-interactive
 ``` -->
+
+## Development
+
+### Create New Release
+
+To generate a new release, use the following steps:
+
+1. Run `npm run nx -- release --skip-publish` locally. This will create a commit with the version and changelog updates, then create a tag for the new version.
+2. Push the changes (including the new tag) to the remote repository with `git push && git push --tags`.
+3. The publish workflow will automatically trigger and publish the packages to the npm registry.
