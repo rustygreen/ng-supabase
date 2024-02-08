@@ -1,7 +1,10 @@
 {
   "name": "@ng-supabase/material",
   "version": "0.0.1",
-  "peerDependencies": {},
+  "peerDependencies": {
+    "@angular/core": "^17.0.0",
+    "@ng-supabase/core": "*"
+  },
   "dependencies": {},
   "sideEffects": false
 }
