@@ -9,7 +9,7 @@ on:
     - main
 
 jobs:
-  Test-and-Build:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -31,3 +31,25 @@ jobs:
 
       - name: Build All Projects
         run: npm run build:ci
+
+      - name: Archive build
+        if: success() && github.event_name != 'pull_request's
+        uses: actions/upload-artifact@v4
+        with:
+          name: github-pages
+          path: dist/apps/demo/browser
+
+  deploy:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    needs: build
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
