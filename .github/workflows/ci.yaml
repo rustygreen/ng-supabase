@@ -32,6 +32,12 @@ jobs:
       - name: Build All Projects
         run: npm run build:ci
 
+      - name: Fix permissions
+        run: |
+          chmod -c -R +rX "dist/apps/demo/browser/" | while read line; do
+            echo "::warning title=Invalid file permissions automatically fixed::$line"
+          done
+
       - name: Archive build
         if: success() && github.event_name != 'pull_request'
         uses: actions/upload-artifact@v4
@@ -52,11 +58,6 @@ jobs:
     steps:
       - name: Setup Pages
         uses: actions/configure-pages@v4
-      - name: Fix permissions
-        run: |
-          chmod -c -R +rX "_site/" | while read line; do
-            echo "::warning title=Invalid file permissions automatically fixed::$line"
-          done
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
