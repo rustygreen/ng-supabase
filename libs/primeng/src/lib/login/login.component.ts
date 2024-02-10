@@ -25,6 +25,7 @@ import { LoginComponent as CoreLoginComponent } from '@ng-supabase/core';
 
 // Local.
 import { LoadingOverlayComponent } from '../loading-overlay/loading-overlay.component';
+import { ResetPasswordComponent } from '../reset-password/reset-password.component';
 
 @Component({
   selector: 'supabase-login',
@@ -40,6 +41,7 @@ import { LoadingOverlayComponent } from '../loading-overlay/loading-overlay.comp
     FieldsetModule,
     InputTextModule,
     ReactiveFormsModule,
+    ResetPasswordComponent,
     LoadingOverlayComponent,
   ],
   templateUrl: './login.component.html',

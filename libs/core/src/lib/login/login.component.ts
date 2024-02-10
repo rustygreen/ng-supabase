@@ -44,6 +44,7 @@ export class LoginComponent implements OnInit {
   @Input() redirectTo = '';
   @Input() rememberMe: boolean | undefined;
 
+  forgotPassword = false;
   wait: WaitMessage | null = null;
   loggingIn = new Subject<boolean>();
   errorMessage = new Subject<string>();
@@ -101,6 +102,7 @@ export class LoginComponent implements OnInit {
 
   showForgotPassword(event?: MouseEvent): void {
     event?.preventDefault();
+    this.forgotPassword = true;
   }
 
   login(): void {

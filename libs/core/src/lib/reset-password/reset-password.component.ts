@@ -5,6 +5,7 @@ import {
   signal,
   Component,
   ChangeDetectionStrategy,
+  OnInit,
 } from '@angular/core';
 import {
   FormGroup,
@@ -29,7 +30,7 @@ import { SupabaseConfig } from '../supabase-config';
   styleUrl: './reset-password.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ResetPasswordComponent {
+export class ResetPasswordComponent implements OnInit {
   @Input() title = 'Reset Password';
   @Input() email = '';
   /**
@@ -49,7 +50,7 @@ export class ResetPasswordComponent {
   readonly errorMessage = signal('');
   readonly sendingReset = signal(false);
   readonly wait = signal<WaitMessage | null>(null);
-  readonly form: FormGroup = new FormGroup({
+  readonly form = new FormGroup({
     email: new FormControl('', [Validators.required]),
   });
 
@@ -59,6 +60,11 @@ export class ResetPasswordComponent {
     private readonly supabase: SupabaseService,
     private readonly routeService: RouteService
   ) {}
+
+  ngOnInit(): void {
+    this.title = this.title ?? this.config.login.title;
+    this.form.controls.email.setValue(this.email);
+  }
 
   async resetPassword(): Promise<void> {
     if (this.form.invalid) {

@@ -140,6 +140,8 @@ export const appConfig: ApplicationConfig = {
 
 ![Login Component](/assets/primeng-login.png)
 
+![Login Message](/assets/primeng-login-message.png)
+
 ### Register Component
 
 ![Register Component](/assets/primeng-register.png)
@@ -147,6 +149,8 @@ export const appConfig: ApplicationConfig = {
 ### Reset Password Component
 
 ![Reset Password Component](/assets/primeng-reset-password.png)
+
+![Reset Password Message](/assets/primeng-reset-password-message.png)
 
 ### Set Password Component
 

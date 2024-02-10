@@ -13,6 +13,14 @@ import {
   SocialLoginItem,
 } from './login/social-login';
 
+export const DEFAULT_ROUTES: ComponentRoutes = {
+  main: '/',
+  login: '/login',
+  register: '/register',
+  setPassword: '/set-password',
+  resetPassword: '/reset-password',
+};
+
 export interface SupabaseConfigProperties {
   apiUrl: string;
   apiKey: string;
@@ -102,13 +110,7 @@ export class SupabaseConfig {
   logging?: LogConfig;
   mainRoute = '/';
   setPassword: SetPasswordConfig;
-  routes: ComponentRoutes = {
-    main: '/',
-    login: '/login',
-    register: '/register',
-    setPassword: '/set-password',
-    resetPassword: '/reset-password',
-  };
+  routes: ComponentRoutes = DEFAULT_ROUTES;
 
   constructor(init: SupabaseConfigProperties) {
     Object.assign(this.routes, init.routes);

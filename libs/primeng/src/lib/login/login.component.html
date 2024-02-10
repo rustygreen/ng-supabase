@@ -32,6 +32,10 @@
   </div>
 </p-fieldset>
 
+} @else if(forgotPassword) {
+<supabase-reset-password
+  [email]="form.value.email || ''"
+></supabase-reset-password>
 } @else {
 <!-- Login form -->
 <form [formGroup]="form" (ngSubmit)="login()">
