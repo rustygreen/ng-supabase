@@ -6,6 +6,7 @@
     "nx": "nx",
     "ng": "nx",
     "build": "nx build",
+    "build:demo": "nx build demo --configuration=production",
     "build:ci": "nx run-many -t build --parallel=5 --configuration=production",
     "start": "nx serve",
     "serve": "nx serve",

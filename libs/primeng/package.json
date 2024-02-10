@@ -1,10 +1,11 @@
 {
   "name": "@ng-supabase/primeng",
-  "version": "1.0.0-rc.1",
+  "version": "1.0.0-rc.2",
   "peerDependencies": {
     "@angular/common": "^17.0.0",
     "@angular/core": "^17.0.0",
     "primeng": "^17.3.0",
+    "primeflex": "^3.3.1",
     "@angular/forms": "~17.0.0",
     "rxjs": "~7.8.0",
     "@ng-supabase/core": "*",

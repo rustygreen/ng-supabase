@@ -32,32 +32,39 @@ jobs:
       - name: Build All Projects
         run: npm run build:ci
 
-      - name: Fix permissions
-        run: |
-          chmod -c -R +rX "dist/apps/demo/browser/" | while read line; do
-            echo "::warning title=Invalid file permissions automatically fixed::$line"
-          done
+  # TODO: Figure out how to get github pages deployment to work.
+  # Currently the GitHub Pages deployment throws an error: "Artifact
+  # could not be deployed. Please ensure the content does not contain
+  # any hard links, symlinks and total size is less than 10GB."
+  # For the time being this will be deployed to Netlify. In the future
+  # we will switch this to use GH Pages - @russell.green
+  #
+  #     - name: Fix permissions
+  #       run: |
+  #         chmod -c -R +rX "dist/apps/demo/browser/" | while read line; do
+  #           echo "::warning title=Invalid file permissions automatically fixed::$line"
+  #         done
 
-      - name: Archive build
-        if: success() && github.event_name != 'pull_request'
-        uses: actions/upload-artifact@v4
-        with:
-          name: github-pages
-          path: dist/apps/demo/browser
+  #     - name: Archive build
+  #       if: success() && github.event_name != 'pull_request'
+  #       uses: actions/upload-artifact@v4
+  #       with:
+  #         name: github-pages
+  #         path: dist/apps/demo/browser
 
-  deploy:
-    if: github.event_name != 'pull_request'
-    runs-on: ubuntu-latest
-    needs: build
-    permissions:
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+  # deploy:
+  #   if: github.event_name != 'pull_request'
+  #   runs-on: ubuntu-latest
+  #   needs: build
+  #   permissions:
+  #     pages: write
+  #     id-token: write
+  #   environment:
+  #     name: github-pages
+  #     url: ${{ steps.deployment.outputs.page_url }}
+  #   steps:
+  #     - name: Setup Pages
+  #       uses: actions/configure-pages@v4
+  #     - name: Deploy to GitHub Pages
+  #       id: deployment
+  #       uses: actions/deploy-pages@v4
