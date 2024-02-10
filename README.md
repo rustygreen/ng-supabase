@@ -138,25 +138,41 @@ export const appConfig: ApplicationConfig = {
 
 ### Login Component
 
+Login:
+
 ![Login Component](/assets/primeng-login.png)
+
+Login with One-Time-Password:
 
 ![Login Message](/assets/primeng-login-message.png)
 
 ### Register Component
 
+Register/Sign Up:
+
 ![Register Component](/assets/primeng-register.png)
 
 ### Reset Password Component
 
+Reset Password:
+
 ![Reset Password Component](/assets/primeng-reset-password.png)
+
+Reset Password Message:
 
 ![Reset Password Message](/assets/primeng-reset-password-message.png)
 
 ### Set Password Component
 
+Set Password:
+
 ![Set Password Component](/assets/primeng-set-password.png)
 
+Set Password Feedback:
+
 ![Set Password Feedback](/assets/primeng-set-password-feedback.png)
+
+Set Password Validation:
 
 ![Set Password Validation](/assets/primeng-set-password-validation.png)
 
