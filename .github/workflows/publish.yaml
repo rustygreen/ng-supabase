@@ -10,7 +10,7 @@ jobs:
     name: Publish
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: read
       id-token: write 
     timeout-minutes: 10
     steps:
@@ -41,8 +41,3 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
           NPM_CONFIG_PROVENANCE: true
-
-      - name: Create GitHub release
-        uses: ncipollo/release-action@v1
-        with:
-          artifacts: "dist/**/*"

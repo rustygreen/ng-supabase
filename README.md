@@ -126,7 +126,24 @@ export const appConfig: ApplicationConfig = {
 
 ## Components
 
-Coming soon...
+| Component      | Default Route     |
+| -------------- | ----------------- |
+| Login          | `/login`          |
+| Register       | `/register`       |
+| Set Password   | `/set-password`   |
+| Reset Password | `/reset-password` |
+
+### PrimeNG
+
+Coming soon
+
+### Bootstrap
+
+Coming soon
+
+### Material
+
+Coming soon
 
 ## Development
 
