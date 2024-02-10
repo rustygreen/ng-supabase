@@ -3,7 +3,7 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "prefix": "ng-supabase",
-  "sourceRoot": "apps/demo//src",
+  "sourceRoot": "apps/demo/src",
   "tags": [],
   "targets": {
     "build": {
@@ -11,13 +11,17 @@
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/demo/",
-        "index": "apps/demo//src/index.html",
-        "browser": "apps/demo//src/main.ts",
+        "index": "apps/demo/src/index.html",
+        "browser": "apps/demo/src/main.ts",
         "polyfills": ["zone.js"],
-        "tsConfig": "apps/demo//tsconfig.app.json",
+        "tsConfig": "apps/demo/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
-        "assets": ["apps/demo//src/favicon.ico", "apps/demo//src/assets"],
-        "styles": ["apps/demo//src/styles.scss"],
+        "assets": [
+          "apps/demo/src/favicon.ico",
+          "apps/demo/src/assets",
+          "apps/demo/src/_redirects"
+        ],
+        "styles": ["apps/demo/src/styles.scss"],
         "scripts": []
       },
       "configurations": {
