@@ -1,6 +1,31 @@
 {
   "name": "@ng-supabase/material",
   "version": "1.0.0-rc.2",
+  "author": "Rusty Green <me@rusty.green>",
+  "contributors": [
+    "Rusty Green <me@rusty.green>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "angular",
+    "ng",
+    "supabase",
+    "material",
+    "angular material",
+    "primeng",
+    "supabase-js",
+    "bootstrap",
+    "auth"
+  ],
+  "description": "ng-supabase is a component library and helper utilities for integrating Supabase in your angular application.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rustygreen/ng-supabase.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rustygreen/ng-supabase/issues"
+  },
+  "homepage": "https://github.com/rustygreen/ng-supabase#readme",
   "peerDependencies": {
     "@angular/core": "^17.0.0",
     "@ng-supabase/core": "*"
