@@ -136,11 +136,29 @@ export const appConfig: ApplicationConfig = {
 
 ### PrimeNG
 
-Coming soon
+### Login Component
+
+![Login Component](/assets/primeng-login.png)
+
+### Register Component
+
+![Register Component](/assets/primeng-register.png)
+
+### Reset Password Component
+
+![Reset Password Component](/assets/primeng-reset-password.png)
+
+### Set Password Component
+
+![Set Password Component](/assets/primeng-set-password.png)
+
+![Set Password Feedback](/assets/primeng-set-password-feedback.png)
+
+![Set Password Validation](/assets/primeng-set-password-validation.png)
 
 ### Bootstrap
 
-Coming soon
+Coming soon...
 
 ### Material
 
