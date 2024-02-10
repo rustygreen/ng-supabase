@@ -22,16 +22,17 @@
 
 ## Features
 
-- 🔥 Pre-designed Supabase components for popular UI libraries
+- 🔥 Pre-designed Supabase components for popular UI libraries (PrimeNG, Material, Bootstrap)
 - ✨ Eliminate boilerplate code and get right to consuming Supabase services
 - 📝 Extendable and highly-configurable components
 - 😍 Full Supabase authentication goodness, ready to go!
-- 💪 Built on top of [Angular 17](https://blog.angular.io/introducing-angular-v17-4d7033312e4b) with [Signals]()https://angular.io/guide/signals and [SSR](https://angular.io/guide/ssr) support
+- 💪 Built on top of [Angular 17](https://blog.angular.io/introducing-angular-v17-4d7033312e4b) with [Signals](https://angular.io/guide/signals) and [SSR](https://angular.io/guide/ssr) support
 
 ## Docs
 
 - [Example Site](https://ng-supabase.netlify.app/)
 - Full docs coming soon...
+  > In the meantime, please checkout the [demo code](https://github.com/rustygreen/ng-supabase/tree/main/apps/demo) for a fully working example.
 
 ## Getting Started
 
