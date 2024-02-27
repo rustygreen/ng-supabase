@@ -50,30 +50,27 @@ jobs:
 
       - name: Build libraries
         run: npm run build:ci
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
-          NPM_CONFIG_PROVENANCE: true
 
       - name: Publish "core" package
-        run: cd dist/libs/core && npm publish --access public
+        run: npm publish dist/libs/core --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
           NPM_CONFIG_PROVENANCE: true
 
       - name: Publish "bootstrap" package
-        run: cd dist/libs/bootstrap && npm publish --access public
+        run: npm publish dist/libs/bootstrap --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
           NPM_CONFIG_PROVENANCE: true
 
       - name: Publish "material" package
-        run: cd dist/libs/material && npm publish --access public
+        run: npm publish dist/libs/material --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
           NPM_CONFIG_PROVENANCE: true
 
       - name: Publish "primeng" package
-        run: cd dist/libs/primeng && npm publish --access public
+        run: npm publish dist/libs/primeng --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
           NPM_CONFIG_PROVENANCE: true
