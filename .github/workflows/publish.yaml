@@ -51,26 +51,29 @@ jobs:
       - name: Build libraries
         run: npm run build:ci
 
+      - name: Cat
+        run: cat .npmrc
+
       - name: Publish "core" package
-        run: npm publish dist/libs/core --access public
+        run: cp .npmrc dist/libs/core && cd dist/libs/core && npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
           NPM_CONFIG_PROVENANCE: true
 
       - name: Publish "bootstrap" package
-        run: npm publish dist/libs/bootstrap --access public
+        run: cp .npmrc dist/libs/bootstrap && cd dist/libs/bootstrap && npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
           NPM_CONFIG_PROVENANCE: true
 
       - name: Publish "material" package
-        run: npm publish dist/libs/material --access public
+        run: cp .npmrc dist/libs/material && cd dist/libs/material && npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
           NPM_CONFIG_PROVENANCE: true
 
       - name: Publish "primeng" package
-        run: npm publish dist/libs/primeng --access public
+        run: cp .npmrc dist/libs/primeng && cd dist/libs/primeng && npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
           NPM_CONFIG_PROVENANCE: true
