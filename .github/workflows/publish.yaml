@@ -48,6 +48,12 @@ jobs:
       # TODO: Remove these steps once the above step is able to
       # be added back in - @russell.green
 
+      - name: Build libraries
+        run: npm run build:ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
+          NPM_CONFIG_PROVENANCE: true
+
       - name: Publish "core" package
         run: cd dist/libs/core && npm publish --access public
         env:

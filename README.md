@@ -202,6 +202,13 @@ Coming soon
 
 ## Development
 
+### Remove Tag
+
+```bash
+git tag --delete <tagname>
+git push --delete origin <tagname>
+```
+
 ### Create New Release
 
 To generate a new release, use the following steps:
