@@ -14,7 +14,7 @@ jobs:
       id-token: write 
     timeout-minutes: 10
     env:
-      NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
+      NODE_AUTH_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
       NPM_CONFIG_PROVENANCE: true
     steps:
       - name: Checkout repository
@@ -54,26 +54,26 @@ jobs:
       - name: Build libraries
         run: npm run build:ci
 
-      - name: Create NPM registry creds for "core" package
-        run: echo $'@ng-supabase:registry = "https://registry.npmjs.org/"\r//registry.npmjs.org/:_authToken=${{ secrets.NODE_AUTH_TOKEN  }}' > dist/libs/core/.npmrc
+      # - name: Create NPM registry creds for "core" package
+      #   run: echo $'@ng-supabase:registry = "https://registry.npmjs.org/"\r//registry.npmjs.org/:_authToken=${{ secrets.NODE_AUTH_TOKEN  }}' > dist/libs/core/.npmrc
 
       - name: Publish "core" package
         run: cd dist/libs/core && npm publish --access public
 
-      - name: Create NPM registry creds for "bootstrap" package
-        run: echo $'@ng-supabase:registry = "https://registry.npmjs.org/"\r//registry.npmjs.org/:_authToken=${{ secrets.NODE_AUTH_TOKEN  }}' > dist/libs/bootstrap/.npmrc
+      # - name: Create NPM registry creds for "bootstrap" package
+      #   run: echo $'@ng-supabase:registry = "https://registry.npmjs.org/"\r//registry.npmjs.org/:_authToken=${{ secrets.NODE_AUTH_TOKEN  }}' > dist/libs/bootstrap/.npmrc
 
       - name: Publish "bootstrap" package
         run: cd dist/libs/bootstrap && npm publish --access public
 
-      - name: Create NPM registry creds for "material" package
-        run: echo $'@ng-supabase:registry = "https://registry.npmjs.org/"\r//registry.npmjs.org/:_authToken=${{ secrets.NODE_AUTH_TOKEN  }}' > dist/libs/material/.npmrc
+      # - name: Create NPM registry creds for "material" package
+      #   run: echo $'@ng-supabase:registry = "https://registry.npmjs.org/"\r//registry.npmjs.org/:_authToken=${{ secrets.NODE_AUTH_TOKEN  }}' > dist/libs/material/.npmrc
 
       - name: Publish "material" package
         run: cd dist/libs/material && npm publish --access public
 
-      - name: Create NPM registry creds for "primeng" package
-        run: echo $'@ng-supabase:registry = "https://registry.npmjs.org/"\r//registry.npmjs.org/:_authToken=${{ secrets.NODE_AUTH_TOKEN  }}' > dist/libs/primeng/.npmrc
+      # - name: Create NPM registry creds for "primeng" package
+      #   run: echo $'@ng-supabase:registry = "https://registry.npmjs.org/"\r//registry.npmjs.org/:_authToken=${{ secrets.NODE_AUTH_TOKEN  }}' > dist/libs/primeng/.npmrc
 
       - name: Publish "primeng" package
         run: cd dist/libs/primeng && npm publish --access public
