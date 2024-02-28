@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/rustygreen/ng-supabase#readme",
   "peerDependencies": {
-    "@angular/core": "^17.0.0",
+    "@angular/core": ">=17.0.0",
     "@ng-supabase/core": "*"
   },
   "dependencies": {},
