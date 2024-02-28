@@ -220,3 +220,9 @@ To generate a new release, use the following steps:
 5. The publish workflow will automatically trigger and publish the packages to the npm registry.
 
 _see more on these steps [here](https://nx.dev/recipes/nx-release/publish-in-ci-cd)_
+
+## TODOs
+
+- [ ] Implement Bootstrap components
+- [ ] Implement Material components
+- [ ] Get working with SSR
