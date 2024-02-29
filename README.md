@@ -224,7 +224,7 @@ _see more on these steps [here](https://nx.dev/recipes/nx-release/publish-in-ci-
 ## TODOs
 
 - [x] Add LogIn route guard
-- [x] Add avatar component
+- [ ] Add avatar component
 - [ ] Add Roles route guard
 - [ ] Implement Bootstrap components
 - [ ] Implement Material components
