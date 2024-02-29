@@ -1,8 +1,12 @@
 // Angular.
 import { Routes } from '@angular/router';
 
+// ng-supabase.
+import { IsLoggedIn } from '@ng-supabase/core';
+
 // Local.
 import { MainComponent } from './main/main.component';
+import { PrivateContentComponent } from './private-content/private-content.component';
 import { LoginComponent as PrimeNgLoginComponent } from './primeng/login/login.component';
 import { LoginComponent as MaterialLoginComponent } from './material/login/login.component';
 import { LoginComponent as BootstrapLoginComponent } from './bootstrap/login/login.component';
@@ -19,6 +23,11 @@ import { ResetPasswordComponent as BootstrapResetPasswordComponent } from './boo
 export const appRoutes: Routes = [
   { path: '', component: MainComponent },
   { path: 'login', redirectTo: 'primeng/login' },
+  {
+    path: 'private-content',
+    component: PrivateContentComponent,
+    canActivate: [IsLoggedIn],
+  },
 
   // PrimeNG routes.
   { path: 'primeng/login', component: PrimeNgLoginComponent },

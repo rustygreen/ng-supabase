@@ -1,5 +1,5 @@
 export interface KeyValue<T = unknown> {
-  [key: number]: T;
+  [key: string]: T;
 }
 
 export interface NumberKeyValue<T = unknown> {

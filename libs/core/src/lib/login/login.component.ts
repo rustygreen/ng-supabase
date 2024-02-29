@@ -182,8 +182,7 @@ export class LoginComponent implements OnInit {
     try {
       this.loggingIn.next(true);
       const email = this.form.value.email as string;
-      const url = this.routeService.getRootUrl();
-      const emailRedirectTo = `${url}/`;
+      const emailRedirectTo = this.getRedirectUrl().toString();
       const { error } = await this.supabase.client.auth.signInWithOtp({
         email,
         options: {

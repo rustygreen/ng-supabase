@@ -111,6 +111,7 @@ export class SupabaseConfig {
   mainRoute = '/';
   setPassword: SetPasswordConfig;
   routes: ComponentRoutes = DEFAULT_ROUTES;
+  redirectParamName: string | null | undefined = 'redirect';
 
   constructor(init: SupabaseConfigProperties) {
     Object.assign(this.routes, init.routes);

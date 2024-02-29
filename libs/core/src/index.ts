@@ -23,6 +23,8 @@ export * from './lib/crypto/uuid';
 
 export * from './lib/type-check/is-string';
 
+export * from './lib/auth-guard/is-logged-in.guard';
+
 export * from './lib/storage/persistent-storage.service';
 
 export * from './lib/wait-message';

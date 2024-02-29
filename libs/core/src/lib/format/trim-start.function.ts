@@ -1,3 +1,4 @@
 export function trimStart(value: string, trimValue = ' ') {
-  return value.startsWith(trimValue) ? value.substring(1) : value;
+  const trimLength = trimValue.length;
+  return value.startsWith(trimValue) ? value.substring(trimLength) : value;
 }
