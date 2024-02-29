@@ -160,6 +160,8 @@ export class LoginComponent implements OnInit {
       const redirect = this.getRedirectUrl();
       this.log.debug(`Logged in successfully. Redirecting to ${redirect}`);
       this.trySaveRememberMe();
+
+      await this.supabase.waitForLoggedIn();
       this.routeService.goTo(redirect as string);
     } catch (error) {
       this.log.error(`Failed to login`);

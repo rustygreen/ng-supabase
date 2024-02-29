@@ -2,7 +2,7 @@
 import { Injectable, NgZone } from '@angular/core';
 
 // 3rd party.
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject, Subject, filter, firstValueFrom, map } from 'rxjs';
 import {
   User,
   Session,
@@ -45,6 +45,15 @@ export class SupabaseService {
     });
 
     this.config.api.subscribe(() => this.setup());
+  }
+
+  waitForLoggedIn(): Promise<Session> {
+    return firstValueFrom(
+      this.loggedIn.pipe(
+        filter(Boolean),
+        map(() => this.session.value as Session)
+      )
+    );
   }
 
   private setup(): void {
