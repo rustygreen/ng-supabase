@@ -90,6 +90,7 @@ export class SupabaseService {
     if (event === 'INITIAL_SESSION') {
       this.initialized.next(true);
     } else if (event === 'SIGNED_IN') {
+      this.loggedIn.next(true);
       this.tryGetSession();
     } else if (event === 'SIGNED_OUT') {
       this.setStateForSignedOut();
@@ -98,8 +99,8 @@ export class SupabaseService {
 
   private async tryGetSession(): Promise<void> {
     const { data, error } = await this.client.auth.getSession();
-
     const noSession = !error && !data.session;
+
     if (noSession) {
       this.log.error('No session information retrieved');
       return;
@@ -111,7 +112,6 @@ export class SupabaseService {
     }
 
     this.session.next(data.session);
-    this.loggedIn.next(true);
 
     if (data.session?.user) {
       this.user.next(data.session.user);
