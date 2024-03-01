@@ -20,14 +20,14 @@ export const IsLoggedIn: CanActivateFn = async (
 ) => {
   const log = inject(LogService);
   const supabase = inject(SupabaseService);
+  const router = inject(Router);
+  const config = inject(SupabaseConfig);
+  const routeService = inject(RouteService);
 
   await supabase.clientReady;
   const loggedIn = supabase.isLoggedIn;
 
   if (!loggedIn) {
-    const router = inject(Router);
-    const config = inject(SupabaseConfig);
-    const routeService = inject(RouteService);
     const queryParams: KeyValue = {};
 
     if (config.redirectParamName) {
