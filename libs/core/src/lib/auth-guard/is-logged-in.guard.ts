@@ -14,12 +14,14 @@ import { SupabaseConfig } from '../supabase-config';
 import { LogService } from '../logging/log.service';
 import { SupabaseService } from '../supabase.service';
 
-export const IsLoggedIn: CanActivateFn = (
+export const IsLoggedIn: CanActivateFn = async (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot
 ) => {
   const log = inject(LogService);
   const supabase = inject(SupabaseService);
+
+  await supabase.clientReady;
   const loggedIn = supabase.isLoggedIn;
 
   if (!loggedIn) {

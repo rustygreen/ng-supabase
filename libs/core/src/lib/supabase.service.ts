@@ -20,11 +20,14 @@ import { LogService } from './logging/log.service';
 })
 export class SupabaseService {
   client!: SupabaseClient;
-  authChange = new Subject<AuthChangeEvent>();
-  session = new BehaviorSubject<Session | null>(null);
-  user = new BehaviorSubject<User | null>(null);
-  displayName = new BehaviorSubject<string>('');
-  loggedIn = new BehaviorSubject<boolean>(false);
+  readonly authChange = new Subject<AuthChangeEvent>();
+  readonly initialized = new BehaviorSubject<boolean>(false);
+  readonly session = new BehaviorSubject<Session | null>(null);
+  readonly user = new BehaviorSubject<User | null>(null);
+  readonly displayName = new BehaviorSubject<string>('');
+  readonly loggedIn = new BehaviorSubject<boolean>(false);
+
+  readonly clientReady: Promise<SupabaseClient>;
 
   get isLoggedIn(): boolean {
     return this.loggedIn.value;
@@ -43,6 +46,13 @@ export class SupabaseService {
       const name = user ? user.email || user.id : '';
       this.displayName.next(name);
     });
+
+    this.clientReady = firstValueFrom(
+      this.initialized.pipe(
+        filter(Boolean),
+        map(() => this.client)
+      )
+    );
 
     this.config.api.subscribe(() => this.setup());
   }
@@ -77,7 +87,9 @@ export class SupabaseService {
   private setAuthState(event: AuthChangeEvent): void {
     this.log.info(`Auth state change: '${event}'`);
     this.authChange.next(event);
-    if (event === 'SIGNED_IN') {
+    if (event === 'INITIAL_SESSION') {
+      this.initialized.next(true);
+    } else if (event === 'SIGNED_IN') {
       this.tryGetSession();
     } else if (event === 'SIGNED_OUT') {
       this.setStateForSignedOut();
