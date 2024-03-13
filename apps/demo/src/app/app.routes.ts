@@ -19,6 +19,9 @@ import { SetPasswordComponent as BootstrapSetPasswordComponent } from './bootstr
 import { ResetPasswordComponent as PrimeNgResetPasswordComponent } from './primeng/reset-password/reset-password.component';
 import { ResetPasswordComponent as MaterialResetPasswordComponent } from './material/reset-password/reset-password.component';
 import { ResetPasswordComponent as BootstrapResetPasswordComponent } from './bootstrap/reset-password/reset-password.component';
+import { RegisterOrSignInComponent as PrimeNgRegisterOrSignInComponent } from './primeng/register-or-sign-in/register-or-sign-in.component';
+import { RegisterOrSignInComponent as MaterialRegisterOrSignInComponent } from './material/register-or-sign-in/register-or-sign-in.component';
+import { RegisterOrSignInComponent as BootstrapRegisterOrSignInComponent } from './bootstrap/register-or-sign-in/register-or-sign-in.component';
 
 export const appRoutes: Routes = [
   { path: '', component: MainComponent },
@@ -34,6 +37,7 @@ export const appRoutes: Routes = [
   { path: 'primeng/register', component: PrimeNgRegisterComponent },
   { path: 'primeng/set-password', component: PrimeNgSetPasswordComponent },
   { path: 'primeng/reset-password', component: PrimeNgResetPasswordComponent },
+  { path: 'primeng/auth', component: PrimeNgRegisterOrSignInComponent },
   // Bootstrap routes.
   { path: 'bootstrap/login', component: BootstrapLoginComponent },
   { path: 'bootstrap/register', component: BootstrapRegisterComponent },
@@ -45,6 +49,7 @@ export const appRoutes: Routes = [
     path: 'bootstrap/reset-password',
     component: BootstrapResetPasswordComponent,
   },
+  { path: 'bootstrap/auth', component: BootstrapRegisterOrSignInComponent },
   // Material routes.
   { path: 'material/login', component: MaterialLoginComponent },
   { path: 'material/register', component: MaterialRegisterComponent },
@@ -53,6 +58,7 @@ export const appRoutes: Routes = [
     path: 'material/reset-password',
     component: MaterialResetPasswordComponent,
   },
+  { path: 'material/auth', component: MaterialRegisterOrSignInComponent },
 
   { path: '**', redirectTo: '' },
 ];

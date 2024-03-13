@@ -1,0 +1,31 @@
+<p-selectButton
+  [options]="stateOptions"
+  [(ngModel)]="selection"
+  optionLabel="label"
+  optionValue="value"
+></p-selectButton>
+
+@if(selection === 'register'){
+<supabase-register></supabase-register>
+} @else {
+<supabase-login></supabase-login>
+}
+
+<!-- <p-tabView>
+  <p-tabPanel>
+    <ng-template pTemplate="header">
+      <i class="pi pi-user-plus mr-2"></i>
+      <span>Register</span>
+    </ng-template>
+
+    
+  </p-tabPanel>
+  <p-tabPanel header="Sign In">
+    <ng-template pTemplate="header">
+      <i class="pi pi-sign-in mr-2"></i>
+      <span>Sign In</span>
+    </ng-template>
+
+    
+  </p-tabPanel>
+</p-tabView> -->

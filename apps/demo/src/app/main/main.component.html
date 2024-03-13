@@ -86,17 +86,25 @@
   </h1>
   <div class="mb-3">
     <p-button
-      label="Sign up for account"
+      label="Register"
       icon="pi pi-user-plus"
       severity="success"
       routerLink="/primeng/register"
     ></p-button>
 
     <p-button
-      label="Login"
+      label="Sign In"
       class="ml-3"
       routerLink="/primeng/login"
       icon="pi pi-sign-in"
+    ></p-button>
+
+    <p-button
+      label="Register or Sign In"
+      class="ml-3"
+      severity="secondary"
+      routerLink="/primeng/auth"
+      icon="pi pi-user"
     ></p-button>
 
     <p-button
@@ -123,7 +131,7 @@
   <h3 class="text-400">Coming soon...</h3>
   <div class="mb-3">
     <p-button
-      label="Sign up for account"
+      label="Register"
       icon="pi pi-user-plus"
       severity="success"
       routerLink="/material/register"
@@ -131,10 +139,19 @@
     ></p-button>
 
     <p-button
-      label="Login"
+      label="Sign In"
       class="ml-3"
       routerLink="/material/login"
       icon="pi pi-sign-in"
+      [disabled]="true"
+    ></p-button>
+
+    <p-button
+      label="Register or Sign In"
+      class="ml-3"
+      severity="secondary"
+      routerLink="/material/auth"
+      icon="pi pi-user"
       [disabled]="true"
     ></p-button>
 
@@ -152,6 +169,7 @@
       routerLink="/material/reset-password"
       severity="warning"
       icon="pi pi-replay"
+      [disabled]="true"
     ></p-button>
   </div>
 
@@ -162,7 +180,7 @@
   <h3 class="text-400">Coming soon...</h3>
   <div class="mb-3">
     <p-button
-      label="Sign up for account"
+      label="Register"
       icon="pi pi-user-plus"
       severity="success"
       routerLink="/bootstrap/register"
@@ -170,10 +188,19 @@
     ></p-button>
 
     <p-button
-      label="Login"
+      label="Sign In"
       class="ml-3"
       routerLink="/bootstrap/login"
       icon="pi pi-sign-in"
+      [disabled]="true"
+    ></p-button>
+
+    <p-button
+      label="Register or Sign In"
+      class="ml-3"
+      severity="secondary"
+      routerLink="/bootstrap/auth"
+      icon="pi pi-user"
       [disabled]="true"
     ></p-button>
 
@@ -191,6 +218,7 @@
       routerLink="/bootstrap/reset-password"
       severity="warning"
       icon="pi pi-replay"
+      [disabled]="true"
     ></p-button>
   </div>
   }
