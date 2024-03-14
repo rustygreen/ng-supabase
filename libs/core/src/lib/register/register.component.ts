@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {
   Input,
   signal,
+  OnInit,
   Component,
   ChangeDetectionStrategy,
 } from '@angular/core';
@@ -26,8 +27,8 @@ import { SupabaseService } from '../supabase.service';
   styleUrl: './register.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RegisterComponent {
-  @Input() title = 'Register Account';
+export class RegisterComponent implements OnInit {
+  @Input() title = '';
   @Input() email = '';
 
   /**
@@ -52,28 +53,39 @@ export class RegisterComponent {
   });
 
   constructor(
+    readonly config: SupabaseConfig,
     private readonly log: LogService,
-    private readonly config: SupabaseConfig,
     private readonly supabase: SupabaseService,
     private readonly routeService: RouteService
   ) {}
+
+  ngOnInit(): void {
+    this.title = this.title ?? this.config.register.title;
+
+    if (this.config.register.metadata.length) {
+      this.setupForMetadata();
+    }
+  }
 
   async register(): Promise<void> {
     if (this.form.invalid) {
       return;
     }
 
-    this.form.disable();
-    this.working.set(true);
-
     try {
       const email = this.form.value.email as string;
+      const data = this.form.value.metadata;
       const emailRedirectTo = this.getRedirectTo();
+
+      this.form.disable();
+      this.working.set(true);
+
       const { error } = await this.supabase.client.auth.signInWithOtp({
         email,
         options: {
           shouldCreateUser: true,
           emailRedirectTo,
+          data,
         },
       });
 
@@ -96,9 +108,22 @@ export class RegisterComponent {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  onError(error: AuthError): void {
+  onError(error: AuthError | string): void {
     // Do nothing in here because this is just a hook for child
     // components to easily subscribe to when an error occurs.
+  }
+
+  protected setupForMetadata(): void {
+    const group = new FormGroup({});
+
+    for (const meta of this.config.register.metadata) {
+      const validators = meta.required ? [Validators.required] : [];
+      const value = meta.defaultValue || '';
+      const control = new FormControl(value, validators);
+      group.addControl(meta.field, control);
+    }
+
+    this.form.addControl('metadata', group);
   }
 
   protected getRedirectTo(): string {

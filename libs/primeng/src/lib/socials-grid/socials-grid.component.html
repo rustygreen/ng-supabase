@@ -1,0 +1,23 @@
+@if(hasSocials){
+<p-divider align="center">
+  <span class="divider-txt">{{ subtitle }}</span>
+</p-divider>
+
+<section class="grid">
+  @for(social of socialItems; track social){
+  <div class="col text-center">
+    <p-button
+      styleClass="w-full"
+      severity="secondary"
+      [outlined]="true"
+      [label]="social.title"
+      (click)="signInWithSocial(social.value)"
+    >
+      @if(social.icon){
+      <img [src]="social.icon" label="Logo" class="mr-2 idp-icon" />
+      }
+    </p-button>
+  </div>
+  }
+</section>
+}

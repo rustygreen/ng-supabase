@@ -17,6 +17,7 @@ export const DEFAULT_ROUTES: ComponentRoutes = {
   main: '/',
   signIn: '/sign-in',
   register: '/register',
+  registerOrSignIn: '/auth',
   setPassword: '/set-password',
   resetPassword: '/reset-password',
 };
@@ -27,6 +28,7 @@ export interface SupabaseConfigProperties {
   mainRoute?: string;
   signIn?: SignInConfigProperties;
   logging?: LogConfig;
+  register?: RegisterProperties;
   setPassword?: SetPasswordProperties;
   routes?: Partial<ComponentRoutes>;
 }
@@ -35,9 +37,23 @@ interface ComponentRoutes {
   main: string;
   signIn: string;
   register: string;
+  registerOrSignIn: string;
   setPassword: string;
   resetPassword: string;
   userProfile?: string;
+}
+
+interface UserRegistrationMetadata {
+  label: string;
+  field: string;
+  type?: 'text' | 'number';
+  required?: boolean;
+  defaultValue?: string | number;
+}
+
+interface RegisterProperties {
+  title?: string;
+  metadata?: UserRegistrationMetadata[];
 }
 
 type SocialSignInFn = (social: SocialSignIn) => boolean | void;
@@ -75,7 +91,17 @@ class SetPasswordConfig implements SetPasswordProperties {
   }
 }
 
-export class SupabaseSignInConfig implements SignInConfigProperties {
+class RegisterConfig implements RegisterConfig {
+  title = '';
+  metadata: UserRegistrationMetadata[] = [];
+
+  constructor(init?: Partial<RegisterProperties>) {
+    Object.assign(this, init);
+    this.metadata = this.metadata || [];
+  }
+}
+
+export class SignInConfig implements SignInConfigProperties {
   title = '';
   magicLinks = true;
   socials: SocialSignIn[] = [];
@@ -86,7 +112,7 @@ export class SupabaseSignInConfig implements SignInConfigProperties {
   rememberMeStorageKey = 'supabase.auth.info';
   onSocialSignIn?: SocialSignInFn;
 
-  constructor(init?: Partial<SupabaseSignInConfig>) {
+  constructor(init?: Partial<SignInConfig>) {
     Object.assign(this, init);
     this.setSocialSignInItems();
   }
@@ -105,11 +131,12 @@ export class SupabaseSignInConfig implements SignInConfigProperties {
 }
 
 export class SupabaseConfig {
-  signIn: SupabaseSignInConfig;
+  signIn: SignInConfig;
   api: BehaviorSubject<{ url: string; key: string }>;
   logging?: LogConfig;
   mainRoute = '/';
   setPassword: SetPasswordConfig;
+  register: RegisterConfig;
   routes: ComponentRoutes = DEFAULT_ROUTES;
   redirectParamName: string | null | undefined = 'redirect';
 
@@ -117,7 +144,8 @@ export class SupabaseConfig {
     Object.assign(this.routes, init.routes);
     this.logging = init.logging;
     this.setPassword = new SetPasswordConfig(init.setPassword);
-    this.signIn = new SupabaseSignInConfig(init.signIn);
+    this.signIn = new SignInConfig(init.signIn);
+    this.register = new RegisterConfig(init.register);
     this.api = new BehaviorSubject<ApiInfo>({
       url: init.apiUrl,
       key: init.apiKey,

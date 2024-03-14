@@ -33,6 +33,24 @@
     </span>
   </section>
 
+  @if(config.register.metadata){
+  <ng-container formGroupName="metadata">
+    @for(meta of config.register.metadata; track $index){
+    <section class="mt-2">
+      <div class="flex flex-column gap-2">
+        <label [for]="'user-meta-' + meta.field">{{ meta.label }}</label>
+        <input
+          pInputText
+          [id]="'user-meta-' + meta.field"
+          [type]="meta.type || 'text'"
+          [formControlName]="meta.field"
+        />
+      </div>
+    </section>
+    }
+  </ng-container>
+  }
+
   <!-- Action button -->
   <div class="w-full mt-4">
     <p-button
@@ -46,5 +64,11 @@
 
   <!-- Error message -->
   <p-messages [value]="messages()" [enableService]="false"> </p-messages>
+
+  <!-- Socials -->
+  <supabase-socials-grid
+    subtitle="or sign up with"
+    (errorMessage)="onError($event)"
+  ></supabase-socials-grid>
 </form>
 }

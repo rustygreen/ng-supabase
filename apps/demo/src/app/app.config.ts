@@ -24,6 +24,13 @@ export const appConfig: ApplicationConfig = {
       logging: {
         logLevel: LogLevel.Debug,
       },
+      // Uncomment below to require first and last name during sign up
+      // register: {
+      //   metadata: [
+      //     { field: 'first_name', label: 'First Name', required: true },
+      //     { field: 'last_name', label: 'Last Name', required: true },
+      //   ],
+      // },
     }),
   ],
 };

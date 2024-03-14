@@ -17,7 +17,6 @@ import {
 
 // 3rd party.
 import { Subject } from 'rxjs';
-import { Provider } from '@supabase/supabase-js';
 
 // Local.
 import { WaitMessage } from '../wait-message';
@@ -25,7 +24,6 @@ import { RouteService } from '../route.service';
 import { LogService } from '../logging/log.service';
 import { SupabaseConfig } from '../supabase-config';
 import { SupabaseService } from '../supabase.service';
-import { SocialSignIn, SocialSignInItem } from './social-sign-in';
 import { PersistentStorageService } from '../storage/persistent-storage.service';
 
 @Component({
@@ -48,7 +46,6 @@ export class SignInComponent implements OnInit {
   wait: WaitMessage | null = null;
   signingIn = new Subject<boolean>();
   errorMessage = new Subject<string>();
-  socialItems: SocialSignInItem[] = [];
   form = new FormGroup({
     email: new FormControl('', [Validators.required]),
     password: new FormControl(''),
@@ -56,25 +53,12 @@ export class SignInComponent implements OnInit {
     rememberMe: new FormControl(true),
   });
 
-  get hasSocials(): boolean {
-    return this.socialItems.length > 0;
-  }
-
-  get hasNoSocials(): boolean {
-    return this.socialItems.length === 0;
-  }
-
   protected readonly log = inject(LogService);
   protected readonly config = inject(SupabaseConfig);
   protected readonly supabase = inject(SupabaseService);
   protected readonly routeService = inject(RouteService);
   protected readonly storage = inject(PersistentStorageService);
   protected readonly changeDetector = inject(ChangeDetectorRef);
-
-  constructor() {
-    const { signIn } = inject(SupabaseConfig);
-    this.socialItems = signIn.socialSignInItems;
-  }
 
   ngOnInit(): void {
     this.title = this.title ?? this.config.signIn.title;
@@ -113,25 +97,6 @@ export class SignInComponent implements OnInit {
     this.form.value.usePassword
       ? this.signInWithPassword()
       : this.signInWithMagicLink();
-  }
-
-  async signInWithSocial(social: SocialSignIn): Promise<void> {
-    const result = this.config.signIn.onSocialSignIn?.(social);
-    if (result === false) {
-      return;
-    }
-
-    const { error } = await this.supabase.client.auth.signInWithOAuth({
-      provider: social as Provider,
-    });
-
-    if (error) {
-      this.log.debug(
-        `Unable to sign in with social '${social}'. ${error.message}`
-      );
-      this.errorMessage.next(error.message);
-      return;
-    }
   }
 
   protected revalidateAllControls(): void {
@@ -206,7 +171,7 @@ export class SignInComponent implements OnInit {
       this.changeDetector.markForCheck();
       this.trySaveRememberMe();
     } catch (error) {
-      //todo
+      // TODO: Handle - @russell.green
     } finally {
       this.signingIn.next(false);
     }

@@ -13,7 +13,6 @@ import { Subscription } from 'rxjs';
 import { MenuModule } from 'primeng/menu';
 import { ButtonModule } from 'primeng/button';
 import { MenuItem, Message } from 'primeng/api';
-import { DividerModule } from 'primeng/divider';
 import { CheckboxModule } from 'primeng/checkbox';
 import { PasswordModule } from 'primeng/password';
 import { MessagesModule } from 'primeng/messages';
@@ -24,6 +23,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { SignInComponent as CoreSignInComponent } from '@ng-supabase/core';
 
 // Local.
+import { SocialsGridComponent } from '../socials-grid/socials-grid.component';
 import { ResetPasswordComponent } from '../reset-password/reset-password.component';
 import { LoadingOverlayComponent } from '../loading-overlay/loading-overlay.component';
 
@@ -34,13 +34,13 @@ import { LoadingOverlayComponent } from '../loading-overlay/loading-overlay.comp
     MenuModule,
     CommonModule,
     ButtonModule,
-    DividerModule,
     MessagesModule,
     CheckboxModule,
     PasswordModule,
     FieldsetModule,
     InputTextModule,
     ReactiveFormsModule,
+    SocialsGridComponent,
     ResetPasswordComponent,
     LoadingOverlayComponent,
   ],
