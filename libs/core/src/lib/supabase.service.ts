@@ -25,16 +25,16 @@ export class SupabaseService {
   readonly session = new BehaviorSubject<Session | null>(null);
   readonly user = new BehaviorSubject<User | null>(null);
   readonly displayName = new BehaviorSubject<string>('');
-  readonly loggedIn = new BehaviorSubject<boolean>(false);
+  readonly signedIn = new BehaviorSubject<boolean>(false);
 
   readonly clientReady: Promise<SupabaseClient>;
 
-  get isLoggedIn(): boolean {
-    return this.loggedIn.value;
+  get isSignedIn(): boolean {
+    return this.signedIn.value;
   }
 
-  get isNotLoggedIn(): boolean {
-    return !this.loggedIn.value;
+  get isNotSignedIn(): boolean {
+    return !this.signedIn.value;
   }
 
   constructor(
@@ -57,9 +57,9 @@ export class SupabaseService {
     this.config.api.subscribe(() => this.setup());
   }
 
-  waitForLoggedIn(): Promise<Session> {
+  waitForSignedIn(): Promise<Session> {
     return firstValueFrom(
-      this.loggedIn.pipe(
+      this.signedIn.pipe(
         filter(Boolean),
         map(() => this.session.value as Session)
       )
@@ -67,7 +67,7 @@ export class SupabaseService {
   }
 
   private setup(): void {
-    if (this.isLoggedIn) {
+    if (this.isSignedIn) {
       this.setStateForSignedOut();
     }
 
@@ -90,7 +90,7 @@ export class SupabaseService {
     if (event === 'INITIAL_SESSION') {
       this.initialized.next(true);
     } else if (event === 'SIGNED_IN') {
-      this.loggedIn.next(true);
+      this.signedIn.next(true);
       this.tryGetSession();
     } else if (event === 'SIGNED_OUT') {
       this.setStateForSignedOut();
@@ -120,7 +120,7 @@ export class SupabaseService {
 
   private setStateForSignedOut(): void {
     this.session.next(null);
-    this.loggedIn.next(false);
+    this.signedIn.next(false);
     this.user.next(null);
   }
 }

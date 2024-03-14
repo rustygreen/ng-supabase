@@ -7,7 +7,7 @@ import { TabViewModule } from 'primeng/tabview';
 import { SelectButtonModule } from 'primeng/selectbutton';
 
 // @ng-supabase.
-import { LoginComponent } from '../login/login.component';
+import { SignInComponent } from '../sign-in/sign-in.component';
 import { RegisterComponent } from '../register/register.component';
 import { RegisterOrSignInComponent as CoreRegisterOrSignInComponent } from '@ng-supabase/core';
 import { FormsModule } from '@angular/forms';
@@ -19,7 +19,7 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     FormsModule,
     RegisterComponent,
-    LoginComponent,
+    SignInComponent,
     TabViewModule,
     SelectButtonModule,
   ],

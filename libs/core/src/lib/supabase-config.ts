@@ -8,14 +8,14 @@ import { BehaviorSubject } from 'rxjs';
 import { LogConfig } from './logging/log-config';
 import { trimEnd } from './format/trim-end.function';
 import {
-  SocialLogIn,
+  SocialSignIn,
   toSocialItem,
-  SocialLoginItem,
-} from './login/social-login';
+  SocialSignInItem,
+} from './sign-in/social-sign-in';
 
 export const DEFAULT_ROUTES: ComponentRoutes = {
   main: '/',
-  login: '/login',
+  signIn: '/sign-in',
   register: '/register',
   setPassword: '/set-password',
   resetPassword: '/reset-password',
@@ -25,7 +25,7 @@ export interface SupabaseConfigProperties {
   apiUrl: string;
   apiKey: string;
   mainRoute?: string;
-  login?: LoginConfigProperties;
+  signIn?: SignInConfigProperties;
   logging?: LogConfig;
   setPassword?: SetPasswordProperties;
   routes?: Partial<ComponentRoutes>;
@@ -33,24 +33,24 @@ export interface SupabaseConfigProperties {
 
 interface ComponentRoutes {
   main: string;
-  login: string;
+  signIn: string;
   register: string;
   setPassword: string;
   resetPassword: string;
   userProfile?: string;
 }
 
-type SocialLoginFn = (social: SocialLogIn) => boolean | void;
+type SocialSignInFn = (social: SocialSignIn) => boolean | void;
 
-interface LoginConfigProperties {
+interface SignInConfigProperties {
   title?: string;
   magicLinks?: boolean;
   rememberMe?: boolean;
-  socials?: SocialLogIn[];
+  socials?: SocialSignIn[];
   socialIconsRoot?: string;
   rememberMeStorageKey?: string;
   redirectTo?: string | string[] | UrlTree | null | undefined;
-  onSocialLogin?: SocialLoginFn;
+  onSocialSignIn?: SocialSignInFn;
 }
 
 interface ApiInfo {
@@ -75,23 +75,23 @@ class SetPasswordConfig implements SetPasswordProperties {
   }
 }
 
-export class SupabaseLoginConfig implements LoginConfigProperties {
+export class SupabaseSignInConfig implements SignInConfigProperties {
   title = '';
   magicLinks = true;
-  socials: SocialLogIn[] = [];
+  socials: SocialSignIn[] = [];
   rememberMe = true;
   socialIconsRoot = 'https://supabase.com/dashboard/img/icons/';
-  socialLoginItems: SocialLoginItem[] = [];
+  socialSignInItems: SocialSignInItem[] = [];
   redirectTo?: string | string[] | UrlTree | null | undefined;
-  rememberMeStorageKey = 'supabase.login.info';
-  onSocialLogin?: SocialLoginFn;
+  rememberMeStorageKey = 'supabase.auth.info';
+  onSocialSignIn?: SocialSignInFn;
 
-  constructor(init?: Partial<SupabaseLoginConfig>) {
+  constructor(init?: Partial<SupabaseSignInConfig>) {
     Object.assign(this, init);
-    this.setSocialLoginItems();
+    this.setSocialSignInItems();
   }
 
-  private setSocialLoginItems(): void {
+  private setSocialSignInItems(): void {
     for (const social of this.socials) {
       const item = toSocialItem(social);
       if (this.socialIconsRoot) {
@@ -99,13 +99,13 @@ export class SupabaseLoginConfig implements LoginConfigProperties {
         item.icon = `${root}/${item.value}-icon.svg`;
       }
 
-      this.socialLoginItems.push(item);
+      this.socialSignInItems.push(item);
     }
   }
 }
 
 export class SupabaseConfig {
-  login: SupabaseLoginConfig;
+  signIn: SupabaseSignInConfig;
   api: BehaviorSubject<{ url: string; key: string }>;
   logging?: LogConfig;
   mainRoute = '/';
@@ -117,7 +117,7 @@ export class SupabaseConfig {
     Object.assign(this.routes, init.routes);
     this.logging = init.logging;
     this.setPassword = new SetPasswordConfig(init.setPassword);
-    this.login = new SupabaseLoginConfig(init.login);
+    this.signIn = new SupabaseSignInConfig(init.signIn);
     this.api = new BehaviorSubject<ApiInfo>({
       url: init.apiUrl,
       key: init.apiKey,

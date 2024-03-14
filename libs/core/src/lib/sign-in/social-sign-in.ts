@@ -1,4 +1,4 @@
-export enum SocialLogIn {
+export enum SocialSignIn {
   Apple = 'apple',
   Azure = 'microsoft',
   Bitbucket = 'bitbucket',
@@ -20,24 +20,24 @@ export enum SocialLogIn {
   Zoom = 'zoom',
 }
 
-export interface SocialLoginItem {
+export interface SocialSignInItem {
   title: string;
-  value: SocialLogIn;
+  value: SocialSignIn;
   icon?: string;
 }
 
-export const ALL_SOCIAL_LOGINS = Object.values(SocialLogIn);
-export const ALL_SOCIAL_LOGIN_ITEMS = Object.entries(SocialLogIn).map(
+export const ALL_SOCIAL_SIGN_INS = Object.values(SocialSignIn);
+export const ALL_SOCIAL_SIGN_IN_ITEMS = Object.entries(SocialSignIn).map(
   ([title, value]) => {
     return { title, value };
   }
 );
 
-export function toSocialItem(social: string[]): SocialLoginItem[];
-export function toSocialItem(social: string): SocialLoginItem;
+export function toSocialItem(social: string[]): SocialSignInItem[];
+export function toSocialItem(social: string): SocialSignInItem;
 export function toSocialItem(
   social: string | string[]
-): SocialLoginItem | SocialLoginItem[] {
+): SocialSignInItem | SocialSignInItem[] {
   const asArray = social as string[];
   const asSingle = social as string;
   return Array.isArray(social)
@@ -45,10 +45,10 @@ export function toSocialItem(
     : toSingleSocialItem(asSingle);
 }
 
-function toSingleSocialItem(socialValue: string): SocialLoginItem {
-  const item = ALL_SOCIAL_LOGIN_ITEMS.find((s) => s.value === socialValue);
+function toSingleSocialItem(socialValue: string): SocialSignInItem {
+  const item = ALL_SOCIAL_SIGN_IN_ITEMS.find((s) => s.value === socialValue);
   if (!item) {
-    throw new Error(`No social login item with value '${socialValue}' found`);
+    throw new Error(`No social sign in item with value '${socialValue}' found`);
   }
 
   return item;

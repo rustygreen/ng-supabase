@@ -66,7 +66,7 @@ Add to `styles.css`
 
 Example:
 
-- Login (ex: `/login`)
+- Sign In (ex: `/sign-in`)
 - Register (ex: `/register`)
 - Set Password (ex: `/set-password`)
 - Reset Password (ex: `/reset-password`)
@@ -75,7 +75,7 @@ Example:
 
 Example:
 
-Your app: `login.component.ts`
+Your app: `sign-in.component.ts`
 
 ```ts
 // Angular.
@@ -83,23 +83,23 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 // ng-supabase.
-import { LoginComponent as PrimeNgLoginComponent } from '@ng-supabase/primeng';
+import { SignInComponent as PrimeNgSignInComponent } from '@ng-supabase/primeng';
 
 @Component({
-  selector: 'ng-supabase-primeng-login',
+  selector: 'ng-supabase-primeng-sign-in',
   standalone: true,
-  imports: [CommonModule, PrimeNgLoginComponent],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.scss',
+  imports: [CommonModule, PrimeNgSignInComponent],
+  templateUrl: './sign-in.component.html',
+  styleUrl: './sign-in.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginComponent {}
+export class SignInComponent {}
 ```
 
-Your app: `login.component.html`
+Your app: `sign-in.component.html`
 
 ```html
-<supabase-login></supabase-login>
+<supabase-sign-in></supabase-sign-in>
 <!-- Plus add whatever other customizations you'd like -->
 ```
 
@@ -115,8 +115,8 @@ export const appConfig: ApplicationConfig = {
     provideSupabase({
       apiUrl: 'https://YOUR_SUPABASE_URL.supabase.co',
       apiKey: 'YOUR_SUPABASE_ANONYMOUS_ACCESS_KEY',
-      login: {
-        socials: [SocialLogIn.Apple, SocialLogIn.Google],
+      signIn: {
+        socials: [SocialSignIn.Apple, SocialSignIn.Google],
       },
     }),
   ],
@@ -129,26 +129,26 @@ export const appConfig: ApplicationConfig = {
 
 | Component      | Default Route     |
 | -------------- | ----------------- |
-| Login          | `/login`          |
+| Sign In        | `/sign-in`        |
 | Register       | `/register`       |
 | Set Password   | `/set-password`   |
 | Reset Password | `/reset-password` |
 
 ### PrimeNG
 
-### Login Component
+### Sign In Component
 
-Login:
-
----
-
-![Login Component](/assets/primeng-login.png)
-
-Login with One-Time-Password:
+Sign In:
 
 ---
 
-![Login Message](/assets/primeng-login-message.png)
+![Sign In Component](/assets/primeng-sign-in.png)
+
+Sign In with One-Time-Password:
+
+---
+
+![Sign In Message](/assets/primeng-sign-in-message.png)
 
 ### Register Component
 
@@ -223,7 +223,7 @@ _see more on these steps [here](https://nx.dev/recipes/nx-release/publish-in-ci-
 
 ## TODOs
 
-- [x] Add LogIn route guard
+- [x] Add SignedIn route guard
 - [ ] Add avatar component
 - [ ] Add Roles route guard
 - [ ] Implement Bootstrap components

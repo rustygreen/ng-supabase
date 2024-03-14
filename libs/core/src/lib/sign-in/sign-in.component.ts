@@ -25,18 +25,18 @@ import { RouteService } from '../route.service';
 import { LogService } from '../logging/log.service';
 import { SupabaseConfig } from '../supabase-config';
 import { SupabaseService } from '../supabase.service';
-import { SocialLogIn, SocialLoginItem } from './social-login';
+import { SocialSignIn, SocialSignInItem } from './social-sign-in';
 import { PersistentStorageService } from '../storage/persistent-storage.service';
 
 @Component({
-  selector: 'supabase-login',
+  selector: 'supabase-sign-in',
   standalone: true,
   imports: [ReactiveFormsModule],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.scss',
+  templateUrl: './sign-in.component.html',
+  styleUrl: './sign-in.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginComponent implements OnInit {
+export class SignInComponent implements OnInit {
   @Input() title = '';
   @Input() email = '';
   @Input() password = '';
@@ -46,9 +46,9 @@ export class LoginComponent implements OnInit {
 
   forgotPassword = false;
   wait: WaitMessage | null = null;
-  loggingIn = new Subject<boolean>();
+  signingIn = new Subject<boolean>();
   errorMessage = new Subject<string>();
-  socialItems: SocialLoginItem[] = [];
+  socialItems: SocialSignInItem[] = [];
   form = new FormGroup({
     email: new FormControl('', [Validators.required]),
     password: new FormControl(''),
@@ -72,13 +72,13 @@ export class LoginComponent implements OnInit {
   protected readonly changeDetector = inject(ChangeDetectorRef);
 
   constructor() {
-    const { login } = inject(SupabaseConfig);
-    this.socialItems = login.socialLoginItems;
+    const { signIn } = inject(SupabaseConfig);
+    this.socialItems = signIn.socialSignInItems;
   }
 
   ngOnInit(): void {
-    this.title = this.title ?? this.config.login.title;
-    const rememberMe = this.rememberMe ?? this.config.login.rememberMe;
+    this.title = this.title ?? this.config.signIn.title;
+    const rememberMe = this.rememberMe ?? this.config.signIn.rememberMe;
     this.form.controls.email.setValue(this.email);
     this.form.controls.usePassword.setValue(this.usePassword);
     this.form.controls.password.setValue(this.password);
@@ -86,14 +86,14 @@ export class LoginComponent implements OnInit {
     this.tryLoadRememberMe();
   }
 
-  showLoginWithPassword(event?: MouseEvent): void {
+  showSignInWithPassword(event?: MouseEvent): void {
     event?.preventDefault();
     this.form.controls.usePassword.setValue(true);
     this.form.controls.password.setValidators([Validators.required]);
     this.revalidateAllControls();
   }
 
-  showLoginWithEmail(event?: MouseEvent): void {
+  showSignInWithEmail(event?: MouseEvent): void {
     event?.preventDefault();
     this.form.controls.usePassword.setValue(false);
     this.form.controls.password.setValidators([]);
@@ -105,18 +105,18 @@ export class LoginComponent implements OnInit {
     this.forgotPassword = true;
   }
 
-  login(): void {
+  signIn(): void {
     if (this.form.disabled || this.form.invalid) {
       return;
     }
 
     this.form.value.usePassword
-      ? this.loginWithPassword()
-      : this.loginWithMagicLink();
+      ? this.signInWithPassword()
+      : this.signInWithMagicLink();
   }
 
-  async loginWithSocial(social: SocialLogIn): Promise<void> {
-    const result = this.config.login.onSocialLogin?.(social);
+  async signInWithSocial(social: SocialSignIn): Promise<void> {
+    const result = this.config.signIn.onSocialSignIn?.(social);
     if (result === false) {
       return;
     }
@@ -127,7 +127,7 @@ export class LoginComponent implements OnInit {
 
     if (error) {
       this.log.debug(
-        `Unable to login with social login '${social}'. ${error.message}`
+        `Unable to sign in with social '${social}'. ${error.message}`
       );
       this.errorMessage.next(error.message);
       return;
@@ -140,10 +140,10 @@ export class LoginComponent implements OnInit {
     );
   }
 
-  protected async loginWithPassword(): Promise<void> {
+  protected async signInWithPassword(): Promise<void> {
     try {
       this.log.debug('Logging in with password');
-      this.loggingIn.next(true);
+      this.signingIn.next(true);
       const email = this.form.value.email as string;
       const password = this.form.value.password as string;
       const { error } = await this.supabase.client.auth.signInWithPassword({
@@ -152,22 +152,22 @@ export class LoginComponent implements OnInit {
       });
 
       if (error) {
-        this.log.debug(`Login failed. ${error.message}`);
+        this.log.debug(`Sign in failed. ${error.message}`);
         this.errorMessage.next(error.message);
         return;
       }
 
       const redirect = this.getRedirectUrl();
-      this.log.debug(`Logged in successfully. Redirecting to ${redirect}`);
+      this.log.debug(`Signed in successfully. Redirecting to ${redirect}`);
       this.trySaveRememberMe();
 
-      await this.supabase.waitForLoggedIn();
+      await this.supabase.waitForSignedIn();
       this.routeService.goTo(redirect as string);
     } catch (error) {
-      this.log.error(`Failed to login`);
+      this.log.error(`Failed to sign in`);
       // TODO: Handle - @rusty.green.
     } finally {
-      this.loggingIn.next(false);
+      this.signingIn.next(false);
     }
   }
 
@@ -175,14 +175,14 @@ export class LoginComponent implements OnInit {
     return (
       this.redirectTo ||
       this.routeService.getRedirectParamValue() ||
-      this.config.login.redirectTo ||
+      this.config.signIn.redirectTo ||
       this.config.mainRoute
     );
   }
 
-  protected async loginWithMagicLink(): Promise<void> {
+  protected async signInWithMagicLink(): Promise<void> {
     try {
-      this.loggingIn.next(true);
+      this.signingIn.next(true);
       const email = this.form.value.email as string;
       const emailRedirectTo = this.getRedirectUrl().toString();
       const { error } = await this.supabase.client.auth.signInWithOtp({
@@ -208,30 +208,30 @@ export class LoginComponent implements OnInit {
     } catch (error) {
       //todo
     } finally {
-      this.loggingIn.next(false);
+      this.signingIn.next(false);
     }
   }
 
   protected tryLoadRememberMe(): void {
-    const info = this.storage.getJson(this.config.login.rememberMeStorageKey);
+    const info = this.storage.getJson(this.config.signIn.rememberMeStorageKey);
     if (info) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       this.form.patchValue(info);
       this.form.value.usePassword
-        ? this.showLoginWithPassword()
-        : this.showLoginWithEmail();
+        ? this.showSignInWithPassword()
+        : this.showSignInWithEmail();
     }
   }
 
   protected clearRememberMe(): void {
-    this.storage.removeItem(this.config.login.rememberMeStorageKey);
+    this.storage.removeItem(this.config.signIn.rememberMeStorageKey);
   }
 
   protected trySaveRememberMe(): void {
     if (this.form.value.rememberMe) {
       const { email, usePassword } = this.form.value;
       const value = { email, usePassword };
-      this.storage.setJson(this.config.login.rememberMeStorageKey, value);
+      this.storage.setJson(this.config.signIn.rememberMeStorageKey, value);
     } else {
       this.clearRememberMe();
     }

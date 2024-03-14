@@ -43,7 +43,7 @@
             >docs here</a
           >)
         </li>
-        <li>Explore the available components (sign up, login, etc.)</li>
+        <li>Explore the available components (sign up, sign in, etc.)</li>
       </ol>
     </p-fieldset>
   </section>
@@ -52,19 +52,19 @@
   <h3>
     Status:
     <p-chip
-      [label]="supabase.isLoggedIn ? 'Logged in' : 'Not logged in'"
+      [label]="supabase.isSignedIn ? 'Signed in' : 'Not signed in'"
     ></p-chip>
   </h3>
 
-  @if(supabase.isLoggedIn){
+  @if(supabase.isSignedIn){
   <h3>
     Display Name:
     <p-chip label="{{ supabase.displayName | async }}"></p-chip>
   </h3>
-  } @if(supabase.isLoggedIn){
+  } @if(supabase.isSignedIn){
   <div>
     <p-button
-      label="Log out"
+      label="Sign out"
       class="mr-3"
       icon="pi pi-sign-out"
       severity="danger"
@@ -95,7 +95,7 @@
     <p-button
       label="Sign In"
       class="ml-3"
-      routerLink="/primeng/login"
+      routerLink="/primeng/sign-in"
       icon="pi pi-sign-in"
     ></p-button>
 
@@ -109,7 +109,7 @@
 
     <p-button
       class="ml-3"
-      label="Login (popup window)"
+      label="Sign In (popup window)"
       severity="secondary"
       icon="pi pi-external-link"
       [disabled]="true"
@@ -141,7 +141,7 @@
     <p-button
       label="Sign In"
       class="ml-3"
-      routerLink="/material/login"
+      routerLink="/material/sign-in"
       icon="pi pi-sign-in"
       [disabled]="true"
     ></p-button>
@@ -157,7 +157,7 @@
 
     <p-button
       class="ml-3"
-      label="Login (popup window)"
+      label="Sign In (popup window)"
       severity="secondary"
       icon="pi pi-external-link"
       [disabled]="true"
@@ -190,7 +190,7 @@
     <p-button
       label="Sign In"
       class="ml-3"
-      routerLink="/bootstrap/login"
+      routerLink="/bootstrap/sign-in"
       icon="pi pi-sign-in"
       [disabled]="true"
     ></p-button>
@@ -206,7 +206,7 @@
 
     <p-button
       class="ml-3"
-      label="Login (popup window)"
+      label="Sign In (popup window)"
       severity="secondary"
       icon="pi pi-external-link"
       [disabled]="true"

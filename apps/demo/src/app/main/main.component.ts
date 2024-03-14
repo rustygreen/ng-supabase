@@ -50,7 +50,7 @@ export class MainComponent implements OnDestroy {
     readonly supabase: SupabaseService,
     private readonly changeDetector: ChangeDetectorRef
   ) {
-    this.supabase.loggedIn.subscribe(() => {
+    this.supabase.signedIn.subscribe(() => {
       // TODO: Determine why "markForCheck" is not working here - @rusty.green
       setTimeout(() => this.changeDetector.detectChanges());
     });

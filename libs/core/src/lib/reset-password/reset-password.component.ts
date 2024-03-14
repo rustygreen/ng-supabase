@@ -62,7 +62,7 @@ export class ResetPasswordComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.title = this.title ?? this.config.login.title;
+    this.title = this.title ?? this.config.signIn.title;
     this.form.controls.email.setValue(this.email);
   }
 

@@ -5,12 +5,10 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 
 // ng-supabase.
 import { provideSupabase } from '@ng-supabase/primeng';
-import { LogLevel, ALL_SOCIAL_LOGINS } from '@ng-supabase/core';
+import { LogLevel, ALL_SOCIAL_SIGN_INS } from '@ng-supabase/core';
 
 // Local.
 import { appRoutes } from './app.routes';
-
-// const ALERT_SOCIAL_LOGIN
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -20,8 +18,8 @@ export const appConfig: ApplicationConfig = {
       apiUrl: 'https://dzyrspsuxgieqnvgvryp.supabase.co',
       apiKey:
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR6eXJzcHN1eGdpZXFudmd2cnlwIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTQyMjQ5MDEsImV4cCI6MjAwOTgwMDkwMX0.d8Qqa07RrjW3OSAjSnlubYCXSiHJWW55y9sLN-Rjc6w',
-      login: {
-        socials: ALL_SOCIAL_LOGINS,
+      signIn: {
+        socials: ALL_SOCIAL_SIGN_INS,
       },
       logging: {
         logLevel: LogLevel.Debug,

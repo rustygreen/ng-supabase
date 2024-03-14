@@ -14,7 +14,7 @@ import { SupabaseConfig } from '../supabase-config';
 import { LogService } from '../logging/log.service';
 import { SupabaseService } from '../supabase.service';
 
-export const IsLoggedIn: CanActivateFn = async (
+export const IsSignedIn: CanActivateFn = async (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot
 ) => {
@@ -25,9 +25,9 @@ export const IsLoggedIn: CanActivateFn = async (
   const routeService = inject(RouteService);
 
   await supabase.clientReady;
-  const loggedIn = supabase.isLoggedIn;
+  const signedIn = supabase.isSignedIn;
 
-  if (!loggedIn) {
+  if (!signedIn) {
     const queryParams: KeyValue = {};
 
     if (config.redirectParamName) {
@@ -36,12 +36,12 @@ export const IsLoggedIn: CanActivateFn = async (
     }
 
     log.info(
-      `User cannot access route '${state.url}', redirecting to login page`
+      `User cannot access route '${state.url}', redirecting to sign in page`
     );
 
-    return router.createUrlTree([config.routes.login], { queryParams });
+    return router.createUrlTree([config.routes.signIn], { queryParams });
   }
 
-  log.debug(`Activating route '${state.url}' for 'IsLoggedIn' guard`);
-  return supabase.isLoggedIn;
+  log.debug(`Activating route '${state.url}' for 'IsSignedIn' guard`);
+  return supabase.isSignedIn;
 };

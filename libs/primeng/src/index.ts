@@ -1,4 +1,4 @@
-export * from './lib/login/login.component';
+export * from './lib/sign-in/sign-in.component';
 
 export * from './lib/set-password/set-password.component';
 

@@ -3,7 +3,7 @@
 }
 
 <!-- Loading overlay. -->
-@if(loggingIn | async){
+@if(signingIn | async){
 <supabase-loading-overlay>
   <h4>Logging in. Please wait...</h4>
 </supabase-loading-overlay>
@@ -23,7 +23,7 @@
     <p class="mt-4 text-right">
       <small
         >Didn't receive it?
-        <a href="" (click)="login(); $event.preventDefault()">send again</a> |
+        <a href="" (click)="signIn(); $event.preventDefault()">send again</a> |
         <a href="" (click)="wait = null; $event.preventDefault()"
           >cancel</a
         ></small
@@ -37,8 +37,8 @@
   [email]="form.value.email || ''"
 ></supabase-reset-password>
 } @else {
-<!-- Login form -->
-<form [formGroup]="form" (ngSubmit)="login()">
+<!-- Sign in form -->
+<form [formGroup]="form" (ngSubmit)="signIn()">
   <section class="mt-4">
     <span class="flex flex-column gap-2 p-input-icon-left">
       <label for="email">Email address</label>
@@ -52,7 +52,7 @@
           class="w-full"
           autocomplete="off"
           formControlName="email"
-          (keydown.enter)="login()"
+          (keydown.enter)="signIn()"
         />
       </span>
     </span>
@@ -69,7 +69,7 @@
           autocomplete="off"
           pInputText
           formControlName="password"
-          (keydown.enter)="login()"
+          (keydown.enter)="signIn()"
         />
       </span>
     </span>
@@ -101,18 +101,20 @@
 
       <p-menu #menu appendTo="body" [model]="menuItems" [popup]="true"></p-menu>
       }@else{
-      <a href="" (click)="showLoginWithPassword($event)">Login with password</a>
+      <a href="" (click)="showSignInWithPassword($event)"
+        >Sign in with password</a
+      >
       }
     </div>
   </section>
 
-  <!-- Login button -->
+  <!-- Sign in button -->
   <div class="w-full mt-4">
     <p-button
       styleClass="w-full"
-      [label]="form.value.usePassword ? 'Login' : 'Next'"
+      [label]="form.value.usePassword ? 'Sign In' : 'Next'"
       [disabled]="form.invalid || form.disabled"
-      (click)="login()"
+      (click)="signIn()"
     ></p-button>
   </div>
 
@@ -125,7 +127,7 @@
   <!-- Socials -->
   @if(hasSocials){
   <p-divider align="center">
-    <span class="divider-txt">or login with</span>
+    <span class="divider-txt">or sign in with</span>
   </p-divider>
 
   <section class="socials grid">
@@ -136,7 +138,7 @@
         severity="secondary"
         [outlined]="true"
         [label]="social.title"
-        (click)="loginWithSocial(social.value)"
+        (click)="signInWithSocial(social.value)"
       >
         @if(social.icon){
         <img [src]="social.icon" label="Logo" class="mr-2 idp-icon" />

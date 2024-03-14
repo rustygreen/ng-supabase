@@ -10,9 +10,9 @@ import {
 
 // 3rd party.
 import { Subscription } from 'rxjs';
-import { MenuItem, Message } from 'primeng/api';
 import { MenuModule } from 'primeng/menu';
 import { ButtonModule } from 'primeng/button';
+import { MenuItem, Message } from 'primeng/api';
 import { DividerModule } from 'primeng/divider';
 import { CheckboxModule } from 'primeng/checkbox';
 import { PasswordModule } from 'primeng/password';
@@ -21,14 +21,14 @@ import { FieldsetModule } from 'primeng/fieldset';
 import { InputTextModule } from 'primeng/inputtext';
 
 // ng-supabase.
-import { LoginComponent as CoreLoginComponent } from '@ng-supabase/core';
+import { SignInComponent as CoreSignInComponent } from '@ng-supabase/core';
 
 // Local.
-import { LoadingOverlayComponent } from '../loading-overlay/loading-overlay.component';
 import { ResetPasswordComponent } from '../reset-password/reset-password.component';
+import { LoadingOverlayComponent } from '../loading-overlay/loading-overlay.component';
 
 @Component({
-  selector: 'supabase-login',
+  selector: 'supabase-sign-in',
   standalone: true,
   imports: [
     MenuModule,
@@ -44,20 +44,20 @@ import { ResetPasswordComponent } from '../reset-password/reset-password.compone
     ResetPasswordComponent,
     LoadingOverlayComponent,
   ],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.scss',
+  templateUrl: './sign-in.component.html',
+  styleUrl: './sign-in.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginComponent
-  extends CoreLoginComponent
+export class SignInComponent
+  extends CoreSignInComponent
   implements OnInit, OnDestroy
 {
   messages: Message[] = [];
   menuItems: MenuItem[] = [
     {
-      label: 'Login with email',
+      label: 'Sign in with email',
       icon: 'pi pi-envelope',
-      command: () => this.showLoginWithEmail(),
+      command: () => this.showSignInWithEmail(),
     },
   ];
 

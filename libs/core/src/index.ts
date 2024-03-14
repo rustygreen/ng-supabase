@@ -1,8 +1,8 @@
 export * from './lib/array/remove-item';
 export * from './lib/array/remove-where';
 
-export * from './lib/login/social-login';
-export * from './lib/login/login.component';
+export * from './lib/sign-in/social-sign-in';
+export * from './lib/sign-in/sign-in.component';
 
 export * from './lib/set-password/set-password.component';
 
@@ -23,7 +23,7 @@ export * from './lib/crypto/uuid';
 
 export * from './lib/type-check/is-string';
 
-export * from './lib/auth-guard/is-logged-in.guard';
+export * from './lib/auth-guard/is-signed-in.guard';
 
 export * from './lib/storage/persistent-storage.service';
 

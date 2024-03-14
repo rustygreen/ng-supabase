@@ -2,14 +2,14 @@
 import { Routes } from '@angular/router';
 
 // ng-supabase.
-import { IsLoggedIn } from '@ng-supabase/core';
+import { IsSignedIn } from '@ng-supabase/core';
 
 // Local.
 import { MainComponent } from './main/main.component';
 import { PrivateContentComponent } from './private-content/private-content.component';
-import { LoginComponent as PrimeNgLoginComponent } from './primeng/login/login.component';
-import { LoginComponent as MaterialLoginComponent } from './material/login/login.component';
-import { LoginComponent as BootstrapLoginComponent } from './bootstrap/login/login.component';
+import { SignInComponent as PrimeNgSignInComponent } from './primeng/sign-in/sign-in.component';
+import { SignInComponent as MaterialSignInComponent } from './material/sign-in/sign-in.component';
+import { SignInComponent as BootstrapSignInComponent } from './bootstrap/sign-in/sign-in.component';
 import { RegisterComponent as PrimeNgRegisterComponent } from './primeng/register/register.component';
 import { RegisterComponent as MaterialRegisterComponent } from './material/register/register.component';
 import { RegisterComponent as BootstrapRegisterComponent } from './bootstrap/register/register.component';
@@ -25,21 +25,21 @@ import { RegisterOrSignInComponent as BootstrapRegisterOrSignInComponent } from 
 
 export const appRoutes: Routes = [
   { path: '', component: MainComponent },
-  { path: 'login', redirectTo: 'primeng/login' },
+  { path: 'sign-in', redirectTo: 'primeng/sign-in' },
   {
     path: 'private-content',
     component: PrivateContentComponent,
-    canActivate: [IsLoggedIn],
+    canActivate: [IsSignedIn],
   },
 
   // PrimeNG routes.
-  { path: 'primeng/login', component: PrimeNgLoginComponent },
+  { path: 'primeng/sign-in', component: PrimeNgSignInComponent },
   { path: 'primeng/register', component: PrimeNgRegisterComponent },
   { path: 'primeng/set-password', component: PrimeNgSetPasswordComponent },
   { path: 'primeng/reset-password', component: PrimeNgResetPasswordComponent },
   { path: 'primeng/auth', component: PrimeNgRegisterOrSignInComponent },
   // Bootstrap routes.
-  { path: 'bootstrap/login', component: BootstrapLoginComponent },
+  { path: 'bootstrap/sign-in', component: BootstrapSignInComponent },
   { path: 'bootstrap/register', component: BootstrapRegisterComponent },
   {
     path: 'bootstrap/set-password',
@@ -51,7 +51,7 @@ export const appRoutes: Routes = [
   },
   { path: 'bootstrap/auth', component: BootstrapRegisterOrSignInComponent },
   // Material routes.
-  { path: 'material/login', component: MaterialLoginComponent },
+  { path: 'material/sign-in', component: MaterialSignInComponent },
   { path: 'material/register', component: MaterialRegisterComponent },
   { path: 'material/set-password', component: MaterialSetPasswordComponent },
   {
