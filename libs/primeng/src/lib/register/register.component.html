@@ -33,7 +33,7 @@
     </span>
   </section>
 
-  @if(config.register.metadata){
+  @if(config.register.metadata.length){
   <ng-container formGroupName="metadata">
     @for(meta of config.register.metadata; track $index){
     <section class="mt-2">
