@@ -24,9 +24,11 @@ export class SupabaseService {
   readonly initialized = new BehaviorSubject<boolean>(false);
   readonly session = new BehaviorSubject<Session | null>(null);
   readonly user = new BehaviorSubject<User | null>(null);
-  readonly displayName = new BehaviorSubject<string>('');
+  readonly userDisplayName = new BehaviorSubject<string>('');
+  readonly userSubheading = new BehaviorSubject<string>('');
+  readonly userProfile = new BehaviorSubject<any>(null);
   readonly signedIn = new BehaviorSubject<boolean>(false);
-
+  readonly loading = new BehaviorSubject<boolean>(true);
   readonly clientReady: Promise<SupabaseClient>;
 
   get isSignedIn(): boolean {
@@ -42,10 +44,7 @@ export class SupabaseService {
     private readonly log: LogService,
     private readonly config: SupabaseConfig
   ) {
-    this.user.subscribe((user: User | null) => {
-      const name = user ? user.email || user.id : '';
-      this.displayName.next(name);
-    });
+    this.user.subscribe((user: User | null) => this.setUserInformation(user));
 
     this.clientReady = firstValueFrom(
       this.initialized.pipe(
@@ -64,6 +63,54 @@ export class SupabaseService {
         map(() => this.session.value as Session)
       )
     );
+  }
+
+  private async setUserInformation(user: User | null): Promise<void> {
+    const profileTable = this.config.profile.table;
+    let displayName = '';
+
+    if (user && profileTable) {
+      this.log.debug(`Retrieving user profile for user ID '${user.id}'`);
+      const { error, data } = await this.client
+        .from(profileTable)
+        .select()
+        .eq(this.config.profile.userIdField, user.id)
+        .limit(1)
+        .single();
+
+      if (error) {
+        this.log.error(
+          `Failed to retrieve user profile. ${error.details}`,
+          error as unknown as Error
+        );
+      }
+
+      if (data) {
+        const firstName = data[this.config.profile.firstNameField];
+        const lastName = data[this.config.profile.lastNameField];
+        displayName = `${firstName || ''} ${lastName || ''}`.trim();
+        this.log.debug(
+          `Retrieving display name of '${displayName}' from profile`
+        );
+      } else {
+        this.log.warn(`No profile found for user ID '${user.id}'`);
+      }
+    }
+
+    displayName = displayName || this.extractDisplay(user);
+    const subheading =
+      displayName === user?.email
+        ? ''
+        : user?.user_metadata?.['title'] || user?.email || '';
+
+    this.userDisplayName.next(displayName);
+    this.userSubheading.next(subheading);
+  }
+
+  private extractDisplay(user: User | null): string {
+    const { first_name, last_name } = user?.user_metadata || {};
+    const display = `${first_name || ''} ${last_name || ''}`.trim();
+    return user ? display || user.email || user.id : '';
   }
 
   private setup(): void {
@@ -89,6 +136,7 @@ export class SupabaseService {
     this.authChange.next(event);
     if (event === 'INITIAL_SESSION') {
       this.initialized.next(true);
+      this.loading.next(false);
     } else if (event === 'SIGNED_IN') {
       this.signedIn.next(true);
       this.tryGetSession();

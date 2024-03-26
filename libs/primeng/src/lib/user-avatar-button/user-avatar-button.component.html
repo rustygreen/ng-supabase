@@ -1,0 +1,14 @@
+<a href="" (click)="menu.toggle($event); $event.preventDefault()">
+  <supabase-user-avatar
+    [loading]="loading"
+    [initials]="initials"
+    [title]="title"
+    [subtitle]="subtitle"
+  ></supabase-user-avatar>
+
+  @if(!loading){
+  <i class="pi pi-angle-down ml-2"></i>
+  }
+</a>
+
+<p-menu #menu [model]="items" [popup]="true"></p-menu>

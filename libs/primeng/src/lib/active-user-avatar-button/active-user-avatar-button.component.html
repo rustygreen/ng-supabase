@@ -1,0 +1,21 @@
+@if(loading() || (supabase.signedIn | async)){
+<supabase-user-avatar-button
+  [loading]="loading()"
+  [items]="items"
+  [initials]="supabase.userDisplayName | async | initials"
+  [title]="(supabase.userDisplayName | async) || ''"
+  [subtitle]="(supabase.userSubheading | async) || ''"
+></supabase-user-avatar-button>
+} @else {
+<p-button
+  label="Log in"
+  icon="pi pi-sign-in"
+  [text]="true"
+  [routerLink]="[config.routes.signIn]"
+></p-button>
+<p-button
+  label="Sign up"
+  icon="pi pi-user-plus"
+  [routerLink]="[config.routes.register]"
+></p-button>
+}

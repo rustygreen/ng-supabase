@@ -26,6 +26,10 @@ import { RegisterOrSignInComponent as BootstrapRegisterOrSignInComponent } from 
 export const appRoutes: Routes = [
   { path: '', component: MainComponent },
   { path: 'sign-in', redirectTo: 'primeng/sign-in' },
+  { path: 'register', redirectTo: 'primeng/register' },
+  { path: 'set-password', redirectTo: 'primeng/set-password' },
+  { path: 'reset-password', redirectTo: 'primeng/reset-password' },
+  { path: 'auth', redirectTo: 'primeng/auth' },
   {
     path: 'private-content',
     component: PrivateContentComponent,

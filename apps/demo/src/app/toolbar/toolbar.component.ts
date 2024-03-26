@@ -10,10 +10,13 @@ import {
 import { ButtonModule } from 'primeng/button';
 import { ToolbarModule } from 'primeng/toolbar';
 
+// ng-supabase.
+import { ActiveUserAvatarButtonComponent } from '@ng-supabase/primeng';
+
 @Component({
   selector: 'ng-supabase-toolbar',
   standalone: true,
-  imports: [ToolbarModule, ButtonModule],
+  imports: [ToolbarModule, ButtonModule, ActiveUserAvatarButtonComponent],
   templateUrl: './toolbar.component.html',
   styleUrl: './toolbar.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

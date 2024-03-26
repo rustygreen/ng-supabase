@@ -20,6 +20,7 @@ export const DEFAULT_ROUTES: ComponentRoutes = {
   registerOrSignIn: '/auth',
   setPassword: '/set-password',
   resetPassword: '/reset-password',
+  postSignOut: '/sign-in',
 };
 
 export interface SupabaseConfigProperties {
@@ -31,6 +32,7 @@ export interface SupabaseConfigProperties {
   register?: RegisterProperties;
   setPassword?: SetPasswordProperties;
   routes?: Partial<ComponentRoutes>;
+  profile?: ProfileProperties;
 }
 
 interface ComponentRoutes {
@@ -41,6 +43,7 @@ interface ComponentRoutes {
   setPassword: string;
   resetPassword: string;
   userProfile?: string;
+  postSignOut?: string;
 }
 
 interface UserRegistrationMetadata {
@@ -54,6 +57,12 @@ interface UserRegistrationMetadata {
 interface RegisterProperties {
   title?: string;
   metadata?: UserRegistrationMetadata[];
+}
+
+interface ProfileProperties {
+  table?: string;
+  firstNameField?: string;
+  lastNameField?: string;
 }
 
 type SocialSignInFn = (social: SocialSignIn) => boolean | void;
@@ -87,6 +96,17 @@ class SetPasswordConfig implements SetPasswordProperties {
   showMessageOnSave = true;
 
   constructor(init?: Partial<SetPasswordProperties>) {
+    Object.assign(this, init);
+  }
+}
+
+class ProfileConfig implements ProfileProperties {
+  table = '';
+  userIdField = 'user_id';
+  firstNameField = 'first_name';
+  lastNameField = 'last_name';
+
+  constructor(init?: Partial<ProfileProperties>) {
     Object.assign(this, init);
   }
 }
@@ -139,6 +159,7 @@ export class SupabaseConfig {
   register: RegisterConfig;
   routes: ComponentRoutes = DEFAULT_ROUTES;
   redirectParamName: string | null | undefined = 'redirect';
+  profile: ProfileConfig;
 
   constructor(init: SupabaseConfigProperties) {
     Object.assign(this.routes, init.routes);
@@ -146,6 +167,7 @@ export class SupabaseConfig {
     this.setPassword = new SetPasswordConfig(init.setPassword);
     this.signIn = new SignInConfig(init.signIn);
     this.register = new RegisterConfig(init.register);
+    this.profile = new ProfileConfig(init.profile);
     this.api = new BehaviorSubject<ApiInfo>({
       url: init.apiUrl,
       key: init.apiKey,

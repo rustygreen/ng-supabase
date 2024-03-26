@@ -1,0 +1,17 @@
+a {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.title {
+  color: rgb(73, 80, 87);
+  font-weight: 700;
+}
+
+.subtitle {
+  color: rgb(108, 117, 125);
+  font-weight: 400;
+}

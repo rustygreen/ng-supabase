@@ -7,22 +7,22 @@
   <div class="p-toolbar-group-end">
     <p-button
       icon="pi pi-github"
+      class="mr-2"
+      severity="secondary"
       [rounded]="true"
       [text]="true"
-      severity="secondary"
       [link]="true"
       (click)="openGitHub()"
     >
     </p-button>
 
-    <!-- <a href="https://angular.dev/" target="_blank" rel="noopener noreferrer">
-      <i class="pi pi-github"></i>
-    </a> -->
+    <supabase-active-user-avatar-button></supabase-active-user-avatar-button>
 
     <p-button
       icon="pi pi-cog"
-      [rounded]="true"
+      class="ml-2"
       severity="secondary"
+      [rounded]="true"
       (click)="showSettings.emit()"
     ></p-button>
   </div>

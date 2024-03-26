@@ -29,9 +29,16 @@ export * from './lib/storage/persistent-storage.service';
 
 export * from './lib/register/register.component';
 
+export * from './lib/user-avatar/user-avatar.component';
+
+export * from './lib/user-avatar-button/user-avatar-button.component';
+
+export * from './lib/active-user-avatar-button/active-user-avatar-button.component';
+
 export * from './lib/register-or-sign-in/register-or-sign-in.component';
 
 export * from './lib/wait-message';
+export * from './lib/initials.pipe';
 export * from './lib/route.service';
 export * from './lib/supabase-config';
 export * from './lib/supabase.service';
