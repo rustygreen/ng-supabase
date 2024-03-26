@@ -1,11 +1,6 @@
 // Angular.
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  signal,
-} from '@angular/core';
+import { Input, Component, ChangeDetectionStrategy } from '@angular/core';
 
 // 3rd party.
 import { AvatarModule } from 'primeng/avatar';

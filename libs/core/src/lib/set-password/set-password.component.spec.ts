@@ -1,8 +1,11 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { SetPasswordComponent } from './set-password.component';
-import { SupabaseConfig } from '../supabase-config';
+// Angular.
 import { RouterTestingModule } from '@angular/router/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+// Local.
+import { SupabaseConfig } from '../supabase-config';
 import { SupabaseService } from '../supabase.service';
+import { SetPasswordComponent } from './set-password.component';
 
 describe('SetPasswordComponent', () => {
   let component: SetPasswordComponent;

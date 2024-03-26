@@ -13,6 +13,7 @@
     "script": "ts-node -r tsconfig-paths/register --project scripts/tsconfig.json",
     "stylelint": "stylelint",
     "start:demo": "nx serve --project=demo",
+    "lint": "nx lint",
     "lint:ci": "npm run lint:all",
     "lint:all": "nx run-many -t lint && stylelint -- **/*.scss",
     "lint:style": "stylelint -- **/*.scss",

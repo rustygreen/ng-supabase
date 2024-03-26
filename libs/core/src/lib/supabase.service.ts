@@ -26,7 +26,7 @@ export class SupabaseService {
   readonly user = new BehaviorSubject<User | null>(null);
   readonly userDisplayName = new BehaviorSubject<string>('');
   readonly userSubheading = new BehaviorSubject<string>('');
-  readonly userProfile = new BehaviorSubject<any>(null);
+  readonly userProfile = new BehaviorSubject<unknown>(null);
   readonly signedIn = new BehaviorSubject<boolean>(false);
   readonly loading = new BehaviorSubject<boolean>(true);
   readonly clientReady: Promise<SupabaseClient>;
