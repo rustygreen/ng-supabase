@@ -36,6 +36,6 @@ export class RegisterOrSignInComponent extends CoreRegisterOrSignInComponent {
 
   stateOptions: OptionItem[] = [
     { label: 'Sign up', value: 'register', icon: 'pi pi-user-plus' },
-    { label: 'Sign in', value: 'sign-in', icon: 'pi pi-sign-in' },
+    { label: 'Log in', value: 'sign-in', icon: 'pi pi-sign-in' },
   ];
 }
