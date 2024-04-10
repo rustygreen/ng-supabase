@@ -25,5 +25,6 @@ export class UserAvatarButtonComponent extends CoreUserAvatarButtonComponent {
   @Input() initials = '';
   @Input() title = '';
   @Input() subtitle = '';
+  @Input() image: string | null | undefined = '';
   @Input() loading: boolean | null | undefined = false;
 }

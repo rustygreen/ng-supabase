@@ -5,6 +5,7 @@
   [initials]="supabase.userDisplayName | async | initials"
   [title]="(supabase.userDisplayName | async) || ''"
   [subtitle]="(supabase.userSubheading | async) || ''"
+  [image]="supabase.userAvatar | async"
 ></supabase-user-avatar-button>
 } @else {
 <p-button

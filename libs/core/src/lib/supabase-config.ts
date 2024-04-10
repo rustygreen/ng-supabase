@@ -61,6 +61,7 @@ interface RegisterProperties {
 
 interface ProfileProperties {
   table?: string;
+  avatarField?: string;
   firstNameField?: string;
   lastNameField?: string;
 }
@@ -105,6 +106,7 @@ class ProfileConfig implements ProfileProperties {
   userIdField = 'user_id';
   firstNameField = 'first_name';
   lastNameField = 'last_name';
+  avatarField = 'avatar';
 
   constructor(init?: Partial<ProfileProperties>) {
     Object.assign(this, init);

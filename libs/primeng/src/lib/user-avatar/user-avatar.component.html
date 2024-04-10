@@ -1,6 +1,7 @@
 <p-avatar
-  [label]="loading ? '' : initials"
+  [label]="loading || image ? '' : initials"
   [icon]="loading ? 'pi pi-spin pi-spinner' : ''"
+  [image]="image || undefined"
   shape="circle"
   styleClass="mr-2"
 ></p-avatar>

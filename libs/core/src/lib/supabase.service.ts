@@ -27,6 +27,7 @@ export class SupabaseService {
   readonly userDisplayName = new BehaviorSubject<string>('');
   readonly userSubheading = new BehaviorSubject<string>('');
   readonly userProfile = new BehaviorSubject<unknown>(null);
+  readonly userAvatar = new BehaviorSubject<string | null>(null);
   readonly signedIn = new BehaviorSubject<boolean>(false);
   readonly loading = new BehaviorSubject<boolean>(true);
   readonly clientReady: Promise<SupabaseClient>;
@@ -71,7 +72,7 @@ export class SupabaseService {
 
     if (user && profileTable) {
       this.log.debug(`Retrieving user profile for user ID '${user.id}'`);
-      const { error, data } = await this.client
+      const { error, data: profile } = await this.client
         .from(profileTable)
         .select()
         .eq(this.config.profile.userIdField, user.id)
@@ -85,10 +86,17 @@ export class SupabaseService {
         );
       }
 
-      if (data) {
-        const firstName = data[this.config.profile.firstNameField];
-        const lastName = data[this.config.profile.lastNameField];
+      if (profile) {
+        const firstName = profile[this.config.profile.firstNameField];
+        const lastName = profile[this.config.profile.lastNameField];
+        const avatar = profile[this.config.profile.avatarField];
         displayName = `${firstName || ''} ${lastName || ''}`.trim();
+        this.userProfile.next(profile);
+
+        if (avatar) {
+          this.userAvatar.next(avatar);
+        }
+
         this.log.debug(
           `Retrieving display name of '${displayName}' from profile`
         );
@@ -170,5 +178,8 @@ export class SupabaseService {
     this.session.next(null);
     this.signedIn.next(false);
     this.user.next(null);
+    this.userProfile.next(null);
+    this.userDisplayName.next('');
+    this.userSubheading.next('');
   }
 }
