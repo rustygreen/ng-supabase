@@ -45,7 +45,9 @@ export class SupabaseService {
     private readonly log: LogService,
     private readonly config: SupabaseConfig
   ) {
-    this.user.subscribe((user: User | null) => this.setUserInformation(user));
+    this.user.subscribe((user: User | null) =>
+      this.refreshUserDisplayInfo(user)
+    );
 
     this.clientReady = firstValueFrom(
       this.initialized.pipe(
@@ -66,7 +68,7 @@ export class SupabaseService {
     );
   }
 
-  private async setUserInformation(user: User | null): Promise<void> {
+  async refreshUserDisplayInfo(user: User | null): Promise<void> {
     const profileTable = this.config.profile.table;
     let displayName = '';
 
