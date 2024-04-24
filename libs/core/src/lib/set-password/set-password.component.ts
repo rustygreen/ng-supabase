@@ -42,6 +42,8 @@ import { NotifyService } from '../notify/notify.service';
 })
 export class SetPasswordComponent implements OnInit, OnDestroy {
   @Input() title = '';
+  @Input() saveLabel = 'Save Password';
+  @Input() savingLabel = 'Saving password...';
   @Input() confirmPassword!: boolean;
   @Input() redirectTo: string | string[] | UrlTree | null | undefined;
   @Output() saved = new EventEmitter<User | null>();
@@ -123,6 +125,8 @@ export class SetPasswordComponent implements OnInit, OnDestroy {
       if (this.redirectTo) {
         await this.routeService.goTo(this.redirectTo as string);
       }
+
+      this.form.reset();
     } finally {
       this.form.enable();
       this.saving.set(false);
