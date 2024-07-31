@@ -15,9 +15,11 @@ export const appConfig: ApplicationConfig = {
     provideRouter(appRoutes),
     provideAnimations(),
     provideSupabase({
-      apiUrl: 'https://dzyrspsuxgieqnvgvryp.supabase.co',
-      apiKey:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR6eXJzcHN1eGdpZXFudmd2cnlwIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTQyMjQ5MDEsImV4cCI6MjAwOTgwMDkwMX0.d8Qqa07RrjW3OSAjSnlubYCXSiHJWW55y9sLN-Rjc6w',
+      project: 'YOUR_PROJECT',
+      // project: 'bwufqwezcimnhvxjrseu',
+      apiKey: 'YOUR_ANON_API_KEY',
+      // apiKey:
+      //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ3dWZxd2V6Y2ltbmh2eGpyc2V1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTM0ODI5OTksImV4cCI6MjAyOTA1ODk5OX0.-YrY07gcUtPi-kNtM30l0U6tpoJKrrttEHCEZkPBMAs',
       signIn: {
         socials: ALL_SOCIAL_SIGN_INS,
       },

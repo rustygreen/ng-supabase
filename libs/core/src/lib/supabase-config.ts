@@ -23,8 +23,7 @@ export const DEFAULT_ROUTES: ComponentRoutes = {
   postSignOut: '/sign-in',
 };
 
-export interface SupabaseConfigProperties {
-  apiUrl: string;
+interface BaseSupabaseConfigProperties {
   apiKey: string;
   mainRoute?: string;
   signIn?: SignInConfigProperties;
@@ -34,6 +33,19 @@ export interface SupabaseConfigProperties {
   routes?: Partial<ComponentRoutes>;
   profile?: ProfileProperties;
 }
+
+interface SupabaseConfigPropertiesByUrl extends BaseSupabaseConfigProperties {
+  apiUrl: string;
+}
+
+interface SupabaseConfigPropertiesByProject
+  extends BaseSupabaseConfigProperties {
+  project: string;
+}
+
+export type SupabaseConfigProperties =
+  | SupabaseConfigPropertiesByUrl
+  | SupabaseConfigPropertiesByProject;
 
 interface ComponentRoutes {
   main: string;
@@ -165,13 +177,20 @@ export class SupabaseConfig {
 
   constructor(init: SupabaseConfigProperties) {
     Object.assign(this.routes, init.routes);
+    const options = init as SupabaseConfigPropertiesByUrl &
+      SupabaseConfigPropertiesByProject;
+
+    const url = options.apiUrl
+      ? options.apiUrl
+      : `https://${options.project}.supabase.co`;
+
     this.logging = init.logging;
     this.setPassword = new SetPasswordConfig(init.setPassword);
     this.signIn = new SignInConfig(init.signIn);
     this.register = new RegisterConfig(init.register);
     this.profile = new ProfileConfig(init.profile);
     this.api = new BehaviorSubject<ApiInfo>({
-      url: init.apiUrl,
+      url: url,
       key: init.apiKey,
     });
   }

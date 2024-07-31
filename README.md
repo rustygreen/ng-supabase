@@ -113,6 +113,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(appRoutes),
     provideAnimations(),
     provideSupabase({
+      // You can optionally provide "project: 123455" and omit apiUrl.
       apiUrl: 'https://YOUR_SUPABASE_URL.supabase.co',
       apiKey: 'YOUR_SUPABASE_ANONYMOUS_ACCESS_KEY',
       signIn: {

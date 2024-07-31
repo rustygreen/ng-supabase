@@ -12,12 +12,13 @@ import {
 import { Subscription } from 'rxjs';
 import { ChipModule } from 'primeng/chip';
 import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
 import { SidebarModule } from 'primeng/sidebar';
 import { FieldsetModule } from 'primeng/fieldset';
 
 // ng-supabase.
 import { ToastModule } from 'primeng/toast';
-import { SupabaseService } from '@ng-supabase/core';
+import { SupabaseConfig, SupabaseService } from '@ng-supabase/core';
 
 // Local.
 import { ToolbarComponent } from '../toolbar/toolbar.component';
@@ -32,6 +33,7 @@ import { SettingsComponent } from '../settings/settings.component';
     CommonModule,
     RouterModule,
     ButtonModule,
+    DialogModule,
     SidebarModule,
     FieldsetModule,
     ToolbarComponent,
@@ -43,13 +45,16 @@ import { SettingsComponent } from '../settings/settings.component';
 })
 export class MainComponent implements OnDestroy {
   showSettingsSidebar = false;
+  supabaseNeedsConfigured = true;
 
   private readonly subscriptions: Subscription[] = [];
 
   constructor(
     readonly supabase: SupabaseService,
+    private readonly config: SupabaseConfig,
     private readonly changeDetector: ChangeDetectorRef
   ) {
+    this.checkIfClientIsConfigured();
     this.supabase.signedIn.subscribe(() => {
       // TODO: Determine why "markForCheck" is not working here - @rusty.green
       setTimeout(() => this.changeDetector.detectChanges());
@@ -69,5 +74,13 @@ export class MainComponent implements OnDestroy {
 
   async signOut(): Promise<void> {
     await this.supabase.client.auth.signOut();
+  }
+
+  private checkIfClientIsConfigured(): void {
+    this.supabaseNeedsConfigured =
+      this.config.api.value.key === 'YOUR_ANON_API_KEY' ||
+      !this.config.api.value.url.includes('http');
+
+    this.changeDetector.markForCheck();
   }
 }

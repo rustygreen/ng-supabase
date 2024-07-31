@@ -7,6 +7,7 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import {
+  output,
   OnInit,
   inject,
   Component,
@@ -31,6 +32,7 @@ import { SupabaseConfig } from '@ng-supabase/core';
 export class SettingsComponent implements OnInit {
   form!: FormGroup;
   config = inject(SupabaseConfig);
+  saved = output<void>();
 
   ngOnInit(): void {
     const { key, url } = this.config.api.value;
