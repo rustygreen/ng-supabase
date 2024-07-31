@@ -32,7 +32,7 @@ interface OptionItem {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegisterOrSignInComponent extends CoreRegisterOrSignInComponent {
-  @Input() type: string = 'register';
+  @Input() type: 'register' | 'sign-in' = 'register';
 
   stateOptions: OptionItem[] = [
     { label: 'Sign up', value: 'register', icon: 'pi pi-user-plus' },
