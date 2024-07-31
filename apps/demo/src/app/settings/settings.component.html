@@ -1,13 +1,21 @@
 <form [formGroup]="form" (ngSubmit)="save()">
   <section class="mt-4">
     <span class="flex flex-column gap-2 p-input-icon-left">
-      <label for="url">Supabase API URL</label>
+      <label for="url"
+        >Supabase API URL or Project ID
+        <a
+          href="https://supabase.com/dashboard/projects"
+          target="_blank"
+          rel="noopener"
+          title="Click for details"
+          ><i class="pi pi-info-circle"></i></a
+      ></label>
 
       <span class="p-input-icon-left">
         <i class="pi pi-link"></i>
         <input
           id="url"
-          type="url"
+          type="text"
           pInputText
           class="w-full"
           autocomplete="off"
@@ -20,7 +28,16 @@
 
   <section class="mt-4">
     <span class="flex flex-column gap-2 p-input-icon-left">
-      <label for="email">Supabase API Key</label>
+      <label for="key"
+        >Supabase Anonymous API Key
+        <a
+          href="https://supabase.com/docs/guides/api/api-keys#the-anon-key"
+          target="_blank"
+          rel="noopener"
+          title="Click for details"
+          ><i class="pi pi-info-circle"></i
+        ></a>
+      </label>
 
       <span class="p-input-icon-left">
         <i class="pi pi-key"></i>

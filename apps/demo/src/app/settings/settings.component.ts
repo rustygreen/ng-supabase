@@ -7,6 +7,7 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import {
+  input,
   output,
   OnInit,
   inject,
@@ -20,6 +21,9 @@ import { InputTextModule } from 'primeng/inputtext';
 
 // @ng-supabase
 import { SupabaseConfig } from '@ng-supabase/core';
+import { STORAGE_KEYS } from '../app.constants';
+
+type Config = { url: string; key: string };
 
 @Component({
   selector: 'ng-supabase-settings',
@@ -30,20 +34,31 @@ import { SupabaseConfig } from '@ng-supabase/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SettingsComponent implements OnInit {
+  useConfigValues = input<boolean>(true);
   form!: FormGroup;
   config = inject(SupabaseConfig);
-  saved = output<void>();
+  saved = output<Config>();
 
   ngOnInit(): void {
-    const { key, url } = this.config.api.value;
+    const { key, url } = this.useConfigValues()
+      ? this.config.api.value
+      : { key: '', url: '' };
 
     this.form = new FormGroup({
-      url: new FormControl(url, [Validators.required]),
-      key: new FormControl(key, [Validators.required]),
+      url: new FormControl<string>(url, [Validators.required]),
+      key: new FormControl<string>(key, [Validators.required]),
     });
   }
 
   save(): void {
-    this.config.api.next({ ...this.form.value });
+    const url = SupabaseConfig.toApiUrl(this.form.value.url);
+    const key = this.form.value.key as string;
+    const config = { url, key };
+
+    localStorage.setItem(STORAGE_KEYS.apiUrl, url);
+    localStorage.setItem(STORAGE_KEYS.apiKey, key);
+
+    this.config.api.next(config);
+    this.saved.emit(config);
   }
 }

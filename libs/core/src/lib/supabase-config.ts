@@ -180,10 +180,7 @@ export class SupabaseConfig {
     const options = init as SupabaseConfigPropertiesByUrl &
       SupabaseConfigPropertiesByProject;
 
-    const url = options.apiUrl
-      ? options.apiUrl
-      : `https://${options.project}.supabase.co`;
-
+    const url = SupabaseConfig.toApiUrl(options.apiUrl || options.project);
     this.logging = init.logging;
     this.setPassword = new SetPasswordConfig(init.setPassword);
     this.signIn = new SignInConfig(init.signIn);
@@ -193,5 +190,11 @@ export class SupabaseConfig {
       url: url,
       key: init.apiKey,
     });
+  }
+
+  static toApiUrl(urlOrProjectId: string): string {
+    return urlOrProjectId.startsWith('http')
+      ? urlOrProjectId
+      : `https://${urlOrProjectId}.supabase.co`;
   }
 }
