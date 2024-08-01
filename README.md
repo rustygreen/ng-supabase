@@ -214,11 +214,9 @@ git push --delete origin <tagname>
 
 To generate a new release, use the following steps:
 
-1. Run `npm run nx -- release --skip-publish` locally. This will create a commit with the version and changelog updates
-2. Commit changes `git add -A && git commit -m "chore: bumped version"`.
-3. Create a tag for the new version `git tag v<tagname>`.
-4. Push the changes (including the new tag) to the remote repository with `git push && git push --tags`.
-5. The publish workflow will automatically trigger and publish the packages to the npm registry.
+1. Run `npm run nx -- release --skip-publish` locally. This will create a commit and tag
+2. Push the changes (including the new tag) to the remote repository with `git push && git push --tags`.
+3. The publish workflow will automatically trigger and publish the packages to the npm registry.
 
 _see more on these steps [here](https://nx.dev/recipes/nx-release/publish-in-ci-cd)_
 

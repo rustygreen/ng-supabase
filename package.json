@@ -21,7 +21,7 @@
     "test": "nx test",
     "test:ci": "npm run test:all --codeCoverage",
     "test:all": "nx run-many -t test",
-    "test:affected": "nx affected -t lint --base=main --head=HEAD --parallel=5 && stylelint -- **/*.scss --fix"
+    "ci": "nx affected -t lint test build --base=origin/main --head=HEAD --parallel=5 && stylelint -- **/*.scss --fix"
   },
   "private": true,
   "dependencies": {
