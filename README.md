@@ -227,6 +227,8 @@ _see more on these steps [here](https://nx.dev/recipes/nx-release/publish-in-ci-
 - [x] Add SignedIn route guard
 - [x] Add avatar component
 - [ ] Add Roles route guard
+- [ ] Fully coverage unit tests
+- [ ] Documentation site
 - [ ] Implement Bootstrap components
 - [ ] Implement Material components
-- [ ] Support Angular 17 SSR
+- [ ] Fully support Angular SSR
