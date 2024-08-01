@@ -195,11 +195,11 @@ Set Password Validation:
 
 ### Bootstrap
 
-Coming soon...
+⏳ Coming soon...
 
 ### Material
 
-Coming soon
+⏳ Coming soon...
 
 ## Development
 
