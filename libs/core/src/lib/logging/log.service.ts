@@ -39,7 +39,7 @@ export class LogService {
   }
 
   log(level: LogLevel, message: string, error?: Error): void {
-    const skip = this.config.enabled === false || level >= this.config.logLevel;
+    const skip = this.config.enabled === false || level > this.config.logLevel;
 
     if (skip) {
       return;
@@ -61,22 +61,22 @@ export class LogService {
   }
 
   debug(message: string): void {
-    this.log(LogLevel.Trace, message);
+    this.log(LogLevel.Debug, message);
   }
 
   info(message: string): void {
-    this.log(LogLevel.Trace, message);
+    this.log(LogLevel.Info, message);
   }
 
   warn(message: string, error?: Error): void {
-    this.log(LogLevel.Trace, message, error);
+    this.log(LogLevel.Warn, message, error);
   }
 
   error(message: string, error?: Error): void {
-    this.log(LogLevel.Trace, message, error);
+    this.log(LogLevel.Error, message, error);
   }
 
   fatal(message: string, error?: Error): void {
-    this.log(LogLevel.Trace, message, error);
+    this.log(LogLevel.Fatal, message, error);
   }
 }
