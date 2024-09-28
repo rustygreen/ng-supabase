@@ -17,6 +17,8 @@ import {
 
 // 3rd party.
 import { ButtonModule } from 'primeng/button';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
 
 // @ng-supabase
@@ -28,7 +30,14 @@ type Config = { url: string; key: string };
 @Component({
   selector: 'ng-supabase-settings',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, ButtonModule, InputTextModule],
+  imports: [
+    ReactiveFormsModule,
+    CommonModule,
+    ButtonModule,
+    IconFieldModule,
+    InputIconModule,
+    InputTextModule,
+  ],
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

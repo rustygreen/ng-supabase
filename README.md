@@ -224,8 +224,10 @@ _see more on these steps [here](https://nx.dev/recipes/nx-release/publish-in-ci-
 
 - [x] Add SignedIn route guard
 - [x] Add avatar component
+- [x] Upgrade to NGPrime 18
+- [x] Remove use of PrimeFlex
 - [ ] Add Roles route guard
-- [ ] Fully coverage unit tests
+- [ ] Full coverage unit tests
 - [ ] Documentation site
 - [ ] Implement Bootstrap components
 - [ ] Implement Material components
