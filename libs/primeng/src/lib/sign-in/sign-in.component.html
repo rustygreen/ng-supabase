@@ -13,7 +13,7 @@
 @if(wait){
 <p-fieldset>
   <ng-template pTemplate="header">
-    <div class="flex align-items-center gap-2 px-2">
+    <div class="flex items-center gap-2 px-2">
       <i [ngClass]="wait.icon"></i>
       <span class="font-bold">{{ wait.title }}</span>
     </div>
@@ -41,12 +41,12 @@
 <form [formGroup]="form" (ngSubmit)="signIn()">
   <section class="mt-4">
     <span class="flex flex-column gap-2 p-input-icon-left">
-      <label for="email">Email address</label>
+      <label [for]="id + '_email'">Email address</label>
 
-      <span class="p-input-icon-left">
-        <i class="pi pi-envelope"></i>
+      <p-iconfield iconPosition="left">
+        <p-inputicon styleClass="pi pi-envelope" />
         <input
-          id="email"
+          [id]="id + '_email'"
           type="email"
           pInputText
           class="w-full"
@@ -54,16 +54,17 @@
           formControlName="email"
           (keydown.enter)="signIn()"
         />
-      </span>
+      </p-iconfield>
     </span>
 
     @if(form.value.usePassword){
     <span class="flex flex-column gap-2 p-input-icon-left mt-2">
-      <label for="password">Password</label>
-      <span class="p-input-icon-left">
-        <i class="pi pi-lock"></i>
+      <label for="id + '_pass'">Password</label>
+
+      <p-iconfield iconPosition="left">
+        <p-inputicon styleClass="pi pi-lock" />
         <input
-          id="password"
+          id="id + '_pass'"
           type="password"
           class="w-full"
           autocomplete="off"
@@ -71,24 +72,24 @@
           formControlName="password"
           (keydown.enter)="signIn()"
         />
-      </span>
+      </p-iconfield>
     </span>
     }
   </section>
 
   <section class="flex mt-4">
-    <span class="flex align-items-center gap-1">
+    <span class="flex items-center">
       <p-checkbox
-        label="Remember me"
+        [inputId]="id + '_rem'"
         formControlName="rememberMe"
         [binary]="true"
-      >
-      </p-checkbox>
+      />
+      <label [for]="id + '_rem'" class="ml-2">Remember me</label>
     </span>
 
     <span class="flex-auto"></span>
 
-    <div class="flex align-items-center">
+    <div class="flex items-center">
       @if(form.value.usePassword){
       <a href="" (click)="showForgotPassword($event)">Forgot password?</a>
       <p-button
@@ -119,9 +120,13 @@
   </div>
 
   <!-- Error message -->
-  @if(messages.length){
-  <p-messages [enableService]="false" [closable]="true" [value]="messages">
-  </p-messages>
+  @for(message of messages; track message){
+  <p-message
+    [severity]="message.severity"
+    [closable]="true"
+    [text]="message.text"
+  >
+  </p-message>
   }
 
   <!-- Socials -->

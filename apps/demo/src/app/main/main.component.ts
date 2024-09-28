@@ -12,7 +12,7 @@ import {
 import { Subscription } from 'rxjs';
 import { ChipModule } from 'primeng/chip';
 import { ButtonModule } from 'primeng/button';
-import { SidebarModule } from 'primeng/sidebar';
+import { DrawerModule } from 'primeng/drawer';
 import { FieldsetModule } from 'primeng/fieldset';
 
 // ng-supabase.
@@ -32,7 +32,7 @@ import { SettingsComponent } from '../settings/settings.component';
     CommonModule,
     RouterModule,
     ButtonModule,
-    SidebarModule,
+    DrawerModule,
     FieldsetModule,
     ToolbarComponent,
     SettingsComponent,

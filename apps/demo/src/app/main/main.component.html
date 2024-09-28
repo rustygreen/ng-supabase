@@ -1,17 +1,24 @@
 <ng-supabase-toolbar (showSettings)="showSettings()"></ng-supabase-toolbar>
 
 <p-toast></p-toast>
-<p-sidebar position="right" [(visible)]="showSettingsSidebar">
+<p-drawer position="right" [(visible)]="showSettingsSidebar">
   <h3>Supabase API Settings</h3>
   <ng-template pTemplate="content">
     <ng-supabase-settings></ng-supabase-settings>
   </ng-template>
-</p-sidebar>
+</p-drawer>
 
 <main class="mx-auto">
-  <section>
-    <p-fieldset legend="Getting Started">
-      <p class="m-0">
+  <section class="mb-4">
+    <p-fieldset>
+      <ng-template pTemplate="header">
+        <div class="flex items-center gap-2 px-2">
+          <i class="pi pi-info-circle"></i>
+          <span class="font-bold">Getting Started</span>
+        </div>
+      </ng-template>
+
+      <p class="m-2">
         The purpose of this demo site is to demonstrate the usage of the
         <a href="https://github.com/rustygreen/ng-supabase" target="_blank"
           >ng-supabase</a
@@ -23,7 +30,7 @@
         application to use ng-supabase.
       </p>
 
-      <ol>
+      <ol class="list-decimal ml-8 mt-4">
         <li>
           Create a
           <a href="https://supabase.com/dashboard" target="_blank"
@@ -49,12 +56,12 @@
   </section>
 
   <h1>Session Info</h1>
-  <h3>
-    Status:
+  <div class="flex items-center mb-4">
+    <h3 class="m-0 mr-2">Status:</h3>
     <p-chip
       [label]="supabase.isSignedIn ? 'Signed in' : 'Not signed in'"
     ></p-chip>
-  </h3>
+  </div>
 
   @if(supabase.isSignedIn){
   <h3>
@@ -62,7 +69,7 @@
     <p-chip label="{{ supabase.userDisplayName | async }}"></p-chip>
   </h3>
   } @if(supabase.isSignedIn){
-  <div>
+  <div class="mb-4">
     <p-button
       label="Sign out"
       class="mr-3"
@@ -80,8 +87,8 @@
     ></p-button>
   </div>
   }@else{
-  <h1>
-    <i class="pi pi-prime text-2xl text-400"></i>
+  <h1 class="flex items-center">
+    <i class="pi pi-prime mr-1"></i>
     PrimeNG Components
   </h1>
   <div class="mb-3">
@@ -119,16 +126,16 @@
       label="Reset password"
       class="ml-3"
       routerLink="/primeng/reset-password"
-      severity="warning"
+      severity="warn"
       icon="pi pi-replay"
     ></p-button>
   </div>
 
-  <h1>
-    <i class="pi pi-google text-2xl text-400"></i>
+  <h1 class="flex items-center mt-6">
+    <i class="pi pi-google mr-1"></i>
     Material Components
   </h1>
-  <h3 class="text-400">Coming soon...</h3>
+  <h3>Coming soon...</h3>
   <div class="mb-3">
     <p-button
       label="Sign Up"
@@ -167,17 +174,17 @@
       label="Reset password"
       class="ml-3"
       routerLink="/material/reset-password"
-      severity="warning"
+      severity="warn"
       icon="pi pi-replay"
       [disabled]="true"
     ></p-button>
   </div>
 
-  <h1>
-    <i class="pi pi-twitter text-2xl text-400"></i>
+  <h1 class="flex items-center mt-6">
+    <i class="pi pi-twitter mr-1"></i>
     Bootstrap Components
   </h1>
-  <h3 class="text-400">Coming soon...</h3>
+  <h3>Coming soon...</h3>
   <div class="mb-3">
     <p-button
       label="Sign Up"
@@ -216,7 +223,7 @@
       label="Reset password"
       class="ml-3"
       routerLink="/bootstrap/reset-password"
-      severity="warning"
+      severity="warn"
       icon="pi pi-replay"
       [disabled]="true"
     ></p-button>
@@ -228,7 +235,7 @@
       label="Go to private route"
       class="mr-3"
       icon="pi pi-lock"
-      severity="warning"
+      severity="danger"
       routerLink="/private-content"
     ></p-button>
   </div>

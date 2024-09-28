@@ -18,8 +18,8 @@
     <span class="flex flex-column gap-2 p-input-icon-left">
       <label for="email">Email address</label>
 
-      <span class="p-input-icon-left">
-        <i class="pi pi-envelope"></i>
+      <p-iconfield iconPosition="left">
+        <p-inputicon styleClass="pi pi-envelope" />
         <input
           id="email"
           type="email"
@@ -29,7 +29,7 @@
           formControlName="email"
           (keydown.enter)="register()"
         />
-      </span>
+      </p-iconfield>
     </span>
   </section>
 
@@ -63,7 +63,10 @@
   </div>
 
   <!-- Error message -->
-  <p-messages [value]="messages()" [enableService]="false"> </p-messages>
+  @for (message of messages(); track message;) {
+  <p-message [text]="message.text" [closable]="true" severity="danger">
+  </p-message>
+  }
 
   <!-- Socials -->
   <supabase-socials-grid

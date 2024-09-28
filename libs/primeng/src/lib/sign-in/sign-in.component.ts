@@ -10,14 +10,17 @@ import {
 
 // 3rd party.
 import { Subscription } from 'rxjs';
+import { MenuItem } from 'primeng/api';
+import { Message } from 'primeng/message';
 import { MenuModule } from 'primeng/menu';
 import { ButtonModule } from 'primeng/button';
-import { MenuItem, Message } from 'primeng/api';
+import { MessageModule } from 'primeng/message';
 import { CheckboxModule } from 'primeng/checkbox';
 import { PasswordModule } from 'primeng/password';
-import { MessagesModule } from 'primeng/messages';
 import { FieldsetModule } from 'primeng/fieldset';
 import { InputTextModule } from 'primeng/inputtext';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
 
 // ng-supabase.
 import { SignInComponent as CoreSignInComponent } from '@ng-supabase/core';
@@ -27,6 +30,8 @@ import { SocialsGridComponent } from '../socials-grid/socials-grid.component';
 import { ResetPasswordComponent } from '../reset-password/reset-password.component';
 import { LoadingOverlayComponent } from '../loading-overlay/loading-overlay.component';
 
+let id = 0;
+
 @Component({
   selector: 'supabase-sign-in',
   standalone: true,
@@ -34,10 +39,12 @@ import { LoadingOverlayComponent } from '../loading-overlay/loading-overlay.comp
     MenuModule,
     CommonModule,
     ButtonModule,
-    MessagesModule,
+    MessageModule,
     CheckboxModule,
     PasswordModule,
     FieldsetModule,
+    IconFieldModule,
+    InputIconModule,
     InputTextModule,
     ReactiveFormsModule,
     SocialsGridComponent,
@@ -52,6 +59,7 @@ export class SignInComponent
   extends CoreSignInComponent
   implements OnInit, OnDestroy
 {
+  readonly id = `ng-sign-in_${id++}`;
   messages: Message[] = [];
   menuItems: MenuItem[] = [
     {
@@ -65,10 +73,14 @@ export class SignInComponent
 
   override ngOnInit(): void {
     super.ngOnInit();
-    this.errorMsgSubscription = this.errorMessage.subscribe((detail) => {
-      this.messages = detail
-        ? [{ severity: 'error', summary: 'Error', detail }]
-        : [];
+    this.errorMsgSubscription = this.errorMessage.subscribe((content) => {
+      const message = {
+        severity: 'error',
+        summary: 'Error',
+        content,
+      } as any; // TODO: Fix when primeng is finalized - @russell.green
+
+      this.messages = content ? [message] : [];
       this.changeDetector.markForCheck();
     });
   }

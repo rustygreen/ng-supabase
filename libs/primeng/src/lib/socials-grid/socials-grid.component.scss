@@ -5,3 +5,29 @@
 .divider-txt {
   color: #6f7681;
 }
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -0.5rem;
+  margin-left: -0.5rem;
+  margin-top: -0.5rem;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.col {
+  flex-grow: 1;
+  min-width: 33%;
+  padding: 0.5rem;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mr-2 {
+  margin-right: 0.5rem;
+}

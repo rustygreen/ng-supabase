@@ -4,13 +4,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { signal, Component, ChangeDetectionStrategy } from '@angular/core';
 
 // 3rd party.
-import { Message } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
-import { MessageModule } from 'primeng/message';
 import { DividerModule } from 'primeng/divider';
 import { PasswordModule } from 'primeng/password';
-import { MessagesModule } from 'primeng/messages';
 import { AuthError } from '@supabase/supabase-js';
+import { Message, MessageModule } from 'primeng/message';
 
 // @ng-supabase.
 import { SetPasswordComponent as CoreSetPasswordComponent } from '@ng-supabase/core';
@@ -24,7 +22,6 @@ import { SetPasswordComponent as CoreSetPasswordComponent } from '@ng-supabase/c
     DividerModule,
     PasswordModule,
     MessageModule,
-    MessagesModule,
     ReactiveFormsModule,
   ],
   templateUrl: './set-password.component.html',
@@ -40,8 +37,8 @@ export class SetPasswordComponent extends CoreSetPasswordComponent {
       {
         severity: 'error',
         closable: true,
-        detail: error.message,
-      },
+        content: error.message,
+      } as any, // TODO: Fix when primeng is finalized - @russell.green
     ]);
   }
 }

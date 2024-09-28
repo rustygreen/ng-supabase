@@ -1,20 +1,24 @@
 // Angular.
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 
 // 3rd party.
-import { Message } from 'primeng/api';
+import { Message } from 'primeng/message';
 import { ButtonModule } from 'primeng/button';
+import { MessageModule } from 'primeng/message';
 import { AuthError } from '@supabase/supabase-js';
 import { CheckboxModule } from 'primeng/checkbox';
-import { MessagesModule } from 'primeng/messages';
 import { InputTextModule } from 'primeng/inputtext';
-import { ReactiveFormsModule } from '@angular/forms';
-import { WaitMessageComponent } from '../wait-message/wait-message.component';
-import { SocialsGridComponent } from '../socials-grid/socials-grid.component';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
 
 // @ng-supabase.
 import { RegisterComponent as CoreRegisterComponent } from '@ng-supabase/core';
+
+// Local.
+import { WaitMessageComponent } from '../wait-message/wait-message.component';
+import { SocialsGridComponent } from '../socials-grid/socials-grid.component';
 
 @Component({
   selector: 'supabase-register',
@@ -22,9 +26,11 @@ import { RegisterComponent as CoreRegisterComponent } from '@ng-supabase/core';
   imports: [
     CommonModule,
     ButtonModule,
-    MessagesModule,
+    MessageModule,
     CheckboxModule,
     InputTextModule,
+    IconFieldModule,
+    InputIconModule,
     ReactiveFormsModule,
     WaitMessageComponent,
     SocialsGridComponent,
@@ -43,8 +49,8 @@ export class RegisterComponent extends CoreRegisterComponent {
       {
         severity: 'error',
         closable: true,
-        detail,
-      },
+        text: detail,
+      } as any, // TODO,
     ]);
   }
 }
