@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
   standalone: true,
 })
 export class InitialsPipe implements PipeTransform {
-  transform(fullName: string | null | undefined, numChars: number = 2): string {
+  transform(fullName: string | null | undefined, numChars = 2): string {
     if (!fullName) {
       return '';
     }

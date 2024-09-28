@@ -21,16 +21,10 @@ jobs:
           node-version: 20
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
-      - name: Lint
-        run: npm run lint:ci
-
-      - name: Test
-        run: npm run test:ci
-
-      - name: Build All Projects
-        run: npm run build:ci
+      - name: Run lint, tests, build
+        run: npm run ci
 
   # TODO: Figure out how to get github pages deployment to work.
   # Currently the GitHub Pages deployment throws an error: "Artifact

@@ -20,7 +20,10 @@
 
       <p class="m-2">
         The purpose of this demo site is to demonstrate the usage of the
-        <a href="https://github.com/rustygreen/ng-supabase" target="_blank"
+        <a
+          href="https://github.com/rustygreen/ng-supabase"
+          target="_blank"
+          rel="noopener"
           >ng-supabase</a
         >
         library. "ng-supabase" is a library that provides various components for
@@ -33,7 +36,10 @@
       <ol class="list-decimal ml-8 mt-4">
         <li>
           Create a
-          <a href="https://supabase.com/dashboard" target="_blank"
+          <a
+            href="https://supabase.com/dashboard"
+            target="_blank"
+            rel="noopener"
             >Supabase project</a
           >
         </li>
@@ -47,6 +53,7 @@
           <a
             href="https://supabase.com/docs/reference/javascript/initializing#initializing"
             target="_blank"
+            rel="noopener"
             >docs here</a
           >)
         </li>
@@ -240,3 +247,42 @@
     ></p-button>
   </div>
 </main>
+
+<p-dialog
+  header="Connect to Supabase"
+  [modal]="true"
+  [closable]="false"
+  [(visible)]="supabaseNeedsConfigured"
+>
+  <span class="p-text-secondary block mb-5">
+    Connect this app to your supabase instance.
+  </span>
+
+  <h4>Steps:</h4>
+  <ol>
+    <li>
+      Create a
+      <a href="https://supabase.com/dashboard" target="_blank" rel="noopener"
+        >Supabase project</a
+      >
+      (if needed)
+    </li>
+    <li>
+      Add <small class="url">https://ng-supabase.netlify.app</small> as a
+      redirect URL
+      <a
+        href="https://supabase.com/docs/guides/auth/redirect-urls"
+        rel="noopener"
+        target="_blank"
+        aria-label="Docs"
+        ><i class="pi pi-info-circle"></i
+      ></a>
+    </li>
+    <li>Enter your instance details below</li>
+  </ol>
+
+  <ng-supabase-settings
+    [useConfigValues]="false"
+    (saved)="supabaseNeedsConfigured = false"
+  ></ng-supabase-settings>
+</p-dialog>

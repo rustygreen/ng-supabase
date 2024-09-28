@@ -9,15 +9,16 @@ import { LogLevel, ALL_SOCIAL_SIGN_INS } from '@ng-supabase/core';
 
 // Local.
 import { appRoutes } from './app.routes';
+import { STORAGE_KEYS } from './app.constants';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(appRoutes),
     provideAnimationsAsync(),
     provideSupabase({
-      apiUrl: 'https://dzyrspsuxgieqnvgvryp.supabase.co',
-      apiKey:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR6eXJzcHN1eGdpZXFudmd2cnlwIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTQyMjQ5MDEsImV4cCI6MjAwOTgwMDkwMX0.d8Qqa07RrjW3OSAjSnlubYCXSiHJWW55y9sLN-Rjc6w',
+      // NOTE: You can optionally set "project" instead of "apiUrl".
+      apiUrl: localStorage.getItem(STORAGE_KEYS.apiUrl) || 'YOUR_PROJECT_URL',
+      apiKey: localStorage.getItem(STORAGE_KEYS.apiKey) || 'YOUR_ANON_API_KEY',
       signIn: {
         socials: ALL_SOCIAL_SIGN_INS,
       },
