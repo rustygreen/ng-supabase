@@ -1,0 +1,9 @@
+@for(message of messages(); track message){
+<p-message
+  [severity]="message.severity"
+  [closable]="true"
+  [icon]="message.icon"
+  [text]="message.text"
+>
+</p-message>
+}

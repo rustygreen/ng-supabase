@@ -11,10 +11,8 @@ import {
 // 3rd party.
 import { Subscription } from 'rxjs';
 import { MenuItem } from 'primeng/api';
-import { Message } from 'primeng/message';
 import { MenuModule } from 'primeng/menu';
 import { ButtonModule } from 'primeng/button';
-import { MessageModule } from 'primeng/message';
 import { CheckboxModule } from 'primeng/checkbox';
 import { PasswordModule } from 'primeng/password';
 import { FieldsetModule } from 'primeng/fieldset';
@@ -26,9 +24,11 @@ import { InputIconModule } from 'primeng/inputicon';
 import { SignInComponent as CoreSignInComponent } from '@ng-supabase/core';
 
 // Local.
+import { MessagesComponent } from '../messages/messages.component';
 import { SocialsGridComponent } from '../socials-grid/socials-grid.component';
 import { ResetPasswordComponent } from '../reset-password/reset-password.component';
 import { LoadingOverlayComponent } from '../loading-overlay/loading-overlay.component';
+import { Message } from '../messages/message';
 
 let id = 0;
 
@@ -39,13 +39,13 @@ let id = 0;
     MenuModule,
     CommonModule,
     ButtonModule,
-    MessageModule,
     CheckboxModule,
     PasswordModule,
     FieldsetModule,
     IconFieldModule,
     InputIconModule,
     InputTextModule,
+    MessagesComponent,
     ReactiveFormsModule,
     SocialsGridComponent,
     ResetPasswordComponent,
@@ -73,14 +73,13 @@ export class SignInComponent
 
   override ngOnInit(): void {
     super.ngOnInit();
-    this.errorMsgSubscription = this.errorMessage.subscribe((content) => {
-      const message = {
+    this.errorMsgSubscription = this.errorMessage.subscribe((text) => {
+      const message: Message = {
         severity: 'error',
-        summary: 'Error',
-        content,
-      } as any; // TODO: Fix when primeng is finalized - @russell.green
+        text,
+      };
 
-      this.messages = content ? [message] : [];
+      this.messages = text ? [message] : [];
       this.changeDetector.markForCheck();
     });
   }

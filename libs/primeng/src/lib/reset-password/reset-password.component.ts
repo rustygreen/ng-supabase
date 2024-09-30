@@ -4,16 +4,18 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 
 // 3rd party.
-import { Message } from 'primeng/message';
 import { ButtonModule } from 'primeng/button';
-import { MessageModule } from 'primeng/message';
 import { AuthError } from '@supabase/supabase-js';
 import { InputTextModule } from 'primeng/inputtext';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
 
 // @ng-supabase.
 import { ResetPasswordComponent as CoreResetPasswordComponent } from '@ng-supabase/core';
 
 // Local.
+import { Message } from '../messages/message';
+import { MessagesComponent } from '../messages/messages.component';
 import { WaitMessageComponent } from '../wait-message/wait-message.component';
 
 @Component({
@@ -22,8 +24,10 @@ import { WaitMessageComponent } from '../wait-message/wait-message.component';
   imports: [
     CommonModule,
     ButtonModule,
-    MessageModule,
     InputTextModule,
+    IconFieldModule,
+    InputIconModule,
+    MessagesComponent,
     ReactiveFormsModule,
     WaitMessageComponent,
   ],
@@ -40,8 +44,8 @@ export class ResetPasswordComponent extends CoreResetPasswordComponent {
       {
         severity: 'error',
         closable: true,
-        content: error.message,
-      } as any, // TODO: Fix when primeng is finalized - @russell.green,
+        text: error.message,
+      },
     ]);
   }
 }

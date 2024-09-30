@@ -39,7 +39,7 @@
         "@nx/dependency-checks": [
           "error",
           {
-            "ignoredDependencies": ["primeflex", "primeicons"]
+            "ignoredDependencies": ["primeicons"]
           }
         ]
       }

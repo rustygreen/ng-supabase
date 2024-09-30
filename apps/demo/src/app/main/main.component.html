@@ -71,10 +71,10 @@
   </div>
 
   @if(supabase.isSignedIn){
-  <h3>
-    Display Name:
+  <div class="flex items-center mb-4">
+    <h3 class="m-0 mr-2">Display Name:</h3>
     <p-chip label="{{ supabase.userDisplayName | async }}"></p-chip>
-  </h3>
+  </div>
   } @if(supabase.isSignedIn){
   <div class="mb-4">
     <p-button

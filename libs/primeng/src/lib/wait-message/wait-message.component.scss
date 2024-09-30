@@ -1,0 +1,46 @@
+.flex {
+  display: flex;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.gap-2 {
+}
+
+.m-0 {
+  margin: 0;
+}
+
+.mt-4 {
+  margin-top: 1rem;
+}
+
+.p-3 {
+  padding: 0.75rem;
+}
+
+.px-2 {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-500 {
+  // TODO: Replace hard coded color and figure out why this isn't working:
+  // color: var(--surface-500);
+  // - @russell.green
+  color: #6b7280;
+}
+
+.font-bold {
+  font-weight: bold;
+}

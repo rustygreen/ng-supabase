@@ -30,12 +30,11 @@
     "@angular/common": ">=18.0.0",
     "@angular/core": ">=18.0.0",
     "@angular/forms": ">=18.0.0",
-    "primeng": ">=17.8.6",
+    "primeng": ">=18.0.0-beta.2",
     "primeicons": ">=7.0.0",
-    "primeflex": ">=3.3.1",
     "rxjs": ">=7.8.0",
     "@ng-supabase/core": "*",
-    "@supabase/supabase-js": ">=2.39.1"
+    "@supabase/supabase-js": ">=2.45.0"
   },
   "dependencies": {},
   "sideEffects": false

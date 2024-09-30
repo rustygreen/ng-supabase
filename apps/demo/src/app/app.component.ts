@@ -4,7 +4,7 @@ import { RouterOutlet } from '@angular/router';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 // 3rd party.
-import { Aura } from 'primeng/themes/aura';
+import { Lara } from 'primeng/themes/lara';
 import { PrimeNGConfig } from 'primeng/api';
 
 @Component({
@@ -19,6 +19,6 @@ export class AppComponent {
   title = 'ng-supabase';
 
   constructor(private config: PrimeNGConfig) {
-    this.config.theme.set({ preset: Aura });
+    this.config.theme.set({ preset: Lara });
   }
 }

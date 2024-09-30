@@ -120,14 +120,7 @@
   </div>
 
   <!-- Error message -->
-  @for(message of messages; track message){
-  <p-message
-    [severity]="message.severity"
-    [closable]="true"
-    [text]="message.text"
-  >
-  </p-message>
-  }
+  <supabase-messages class="mt-4" [messages]="messages"></supabase-messages>
 
   <!-- Socials -->
   <supabase-socials-grid
