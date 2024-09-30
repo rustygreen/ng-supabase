@@ -8,6 +8,7 @@
     "build": "nx build",
     "build:demo": "nx build demo --configuration=production",
     "build:ci": "nx run-many -t build --parallel=5 --configuration=production && npm run script -- scripts/update-lib-packages.ts",
+    "ci": "nx run-many -t build lint test --parallel=5 --configuration=production && stylelint",
     "start": "nx serve",
     "serve": "nx serve",
     "script": "ts-node -r tsconfig-paths/register --project scripts/tsconfig.json",

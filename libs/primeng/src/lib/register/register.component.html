@@ -63,10 +63,7 @@
   </div>
 
   <!-- Error message -->
-  @for (message of messages(); track message;) {
-  <p-message [text]="message.text" [closable]="true" severity="danger">
-  </p-message>
-  }
+  <supabase-messages [messages]="messages()"></supabase-messages>
 
   <!-- Socials -->
   <supabase-socials-grid

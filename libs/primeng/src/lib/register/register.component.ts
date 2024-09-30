@@ -4,9 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 
 // 3rd party.
-import { Message } from 'primeng/message';
 import { ButtonModule } from 'primeng/button';
-import { MessageModule } from 'primeng/message';
 import { AuthError } from '@supabase/supabase-js';
 import { CheckboxModule } from 'primeng/checkbox';
 import { InputTextModule } from 'primeng/inputtext';
@@ -17,6 +15,8 @@ import { InputIconModule } from 'primeng/inputicon';
 import { RegisterComponent as CoreRegisterComponent } from '@ng-supabase/core';
 
 // Local.
+import { Message } from '../messages/message';
+import { MessagesComponent } from '../messages/messages.component';
 import { WaitMessageComponent } from '../wait-message/wait-message.component';
 import { SocialsGridComponent } from '../socials-grid/socials-grid.component';
 
@@ -26,11 +26,11 @@ import { SocialsGridComponent } from '../socials-grid/socials-grid.component';
   imports: [
     CommonModule,
     ButtonModule,
-    MessageModule,
     CheckboxModule,
     InputTextModule,
     IconFieldModule,
     InputIconModule,
+    MessagesComponent,
     ReactiveFormsModule,
     WaitMessageComponent,
     SocialsGridComponent,
@@ -50,7 +50,7 @@ export class RegisterComponent extends CoreRegisterComponent {
         severity: 'error',
         closable: true,
         text: detail,
-      } as any, // TODO,
+      },
     ]);
   }
 }
