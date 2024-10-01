@@ -1,8 +1,10 @@
-/* You can add global styles to this file, and also import other style files */
 @import 'primeicons/primeicons.css';
+
+/* stylelint-disable */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* stylelint-enable */
 
 a {
   @apply underline text-blue-600 hover:text-blue-800 visited:text-purple-600;

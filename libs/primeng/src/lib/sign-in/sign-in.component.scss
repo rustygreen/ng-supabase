@@ -44,3 +44,9 @@ input {
 .w-full {
   width: 100%;
 }
+
+:host ::ng-deep {
+  .w-full {
+    width: 100%;
+  }
+}

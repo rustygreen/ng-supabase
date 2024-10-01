@@ -14,10 +14,6 @@
   margin-top: -0.5rem;
 }
 
-.w-full {
-  width: 100%;
-}
-
 .col {
   flex-grow: 1;
   min-width: 33%;
@@ -30,4 +26,14 @@
 
 .mr-2 {
   margin-right: 0.5rem;
+}
+
+.w-full {
+  width: 100%;
+}
+
+:host ::ng-deep {
+  .w-full {
+    width: 100%;
+  }
 }
