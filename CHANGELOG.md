@@ -1,3 +1,14 @@
+## 1.0.0-rc.22 (2024-12-17)
+
+
+### 🚀 Features
+
+- **auth:** adds OTP code auth/verification on signin and register ([941fde2](https://github.com/rustygreen/ng-supabase/commit/941fde2))
+
+### ❤️  Thank You
+
+- Rusty Green @rustygreen
+
 ## 1.0.0-rc.21 (2024-10-01)
 
 This was a version bump only, there were no code changes.
