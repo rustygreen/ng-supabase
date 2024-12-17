@@ -1,23 +1,35 @@
 // Angular.
+import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import {
-  ChangeDetectionStrategy,
+  Input,
+  inject,
+  Output,
   Component,
   EventEmitter,
-  Input,
-  Output,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 
 // 3rd party.
+import { DividerModule } from 'primeng/divider';
 import { FieldsetModule } from 'primeng/fieldset';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { InputOtpChangeEvent, InputOtpModule } from 'primeng/inputotp';
 
 // @ng-supabase
-import { WaitMessage } from '@ng-supabase/core';
+import { WaitMessage, SupabaseConfig } from '@ng-supabase/core';
 
 @Component({
   selector: 'supabase-wait-message',
   standalone: true,
-  imports: [CommonModule, FieldsetModule],
+  imports: [
+    FormsModule,
+    CommonModule,
+    DividerModule,
+    FieldsetModule,
+    InputOtpModule,
+    ProgressSpinnerModule,
+  ],
   templateUrl: './wait-message.component.html',
   styleUrl: './wait-message.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -30,6 +42,21 @@ export class WaitMessageComponent {
   @Input() showSendAgain = true;
   @Input() showCancel = true;
   @Input() subTitle = '';
+  @Input() otpMessage = 'Enter the code from your email';
+  @Input() loading = false;
+
   @Output() cancel = new EventEmitter<void>();
   @Output() sendAgain = new EventEmitter<void>();
+  @Output() verifyOtp = new EventEmitter<string>();
+
+  readonly config = inject(SupabaseConfig);
+  otp = '';
+
+  checkOtpValue(event: InputOtpChangeEvent): void {
+    const digits = (event.value || '').length;
+    const doOtpCheck = digits === this.config.signIn.otpLength;
+    if (doOtpCheck) {
+      this.verifyOtp.emit(event.value);
+    }
+  }
 }

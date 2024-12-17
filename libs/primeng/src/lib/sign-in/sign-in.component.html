@@ -10,28 +10,16 @@
 }
 
 <!-- Wait -->
-@if(wait){
-<p-fieldset>
-  <ng-template pTemplate="header">
-    <div class="flex items-center gap-2 px-2">
-      <i [ngClass]="wait.icon"></i>
-      <span class="font-bold">{{ wait.title }}</span>
-    </div>
-  </ng-template>
-  <div>
-    <p class="m-0" [innerHTML]="wait.message"></p>
-    <p class="mt-4 text-right">
-      <small
-        >Didn't receive it?
-        <a href="" (click)="signIn(); $event.preventDefault()">send again</a> |
-        <a href="" (click)="wait = null; $event.preventDefault()"
-          >cancel</a
-        ></small
-      >
-    </p>
-  </div>
-</p-fieldset>
-
+@if(wait()){
+<supabase-wait-message
+  [message]="wait()"
+  [showCancel]="true"
+  subTitle="You can close this window"
+  [loading]="verifyingOtp()"
+  (sendAgain)="signIn()"
+  (verifyOtp)="verifyOtp($event)"
+  (cancel)="wait.set(null)"
+></supabase-wait-message>
 } @else if(forgotPassword) {
 <supabase-reset-password
   [email]="form.value.email || ''"
@@ -120,11 +108,11 @@
   </div>
 
   <!-- Error message -->
-  <supabase-messages class="mt-4" [messages]="messages"></supabase-messages>
+  <supabase-messages class="mt-4" [messages]="messages()"></supabase-messages>
 
   <!-- Socials -->
   <supabase-socials-grid
-    (errorMessage)="errorMessage.next($event)"
+    (errorMessage)="errorMessage.set($event)"
   ></supabase-socials-grid>
 </form>
 }

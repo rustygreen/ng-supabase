@@ -1,5 +1,6 @@
 export interface WaitMessage {
-  icon?: string;
   title: string;
   message: string;
+  icon?: string;
+  enableOtp?:boolean;
 }

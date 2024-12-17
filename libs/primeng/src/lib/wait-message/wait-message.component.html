@@ -8,6 +8,34 @@
   </ng-template>
   <div class="p-3">
     <p class="m-0" [innerHTML]="message.message"></p>
+
+    @if(message.enableOtp){
+    <p-divider align="center" type="dotted">
+      @if(loading){
+      <p-progress-spinner
+        ariaLabel="loading"
+        [style]="{ width: '35px', height: '35px' }"
+      />
+      }@else{
+      <b class="text-500">Or</b>
+      }
+    </p-divider>
+
+    <div class="flex flex-column items-center">
+      <div class="flex items-center">
+        <strong class="pb-3">{{ otpMessage }}</strong>
+      </div>
+      <p-inputotp
+        [autofocus]="true"
+        [(ngModel)]="otp"
+        [length]="config.signIn.otpLength"
+        [disabled]="loading"
+        [integerOnly]="true"
+        (onChange)="checkOtpValue($event)"
+      />
+    </div>
+    }
+
     <p class="mt-4 text-right">
       <small
         >{{ mainTitle }}

@@ -2,10 +2,10 @@
 import { UrlTree } from '@angular/router';
 import {
   Input,
+  signal,
   OnInit,
-  Component,
   inject,
-  ChangeDetectorRef,
+  Component,
   ChangeDetectionStrategy,
 } from '@angular/core';
 import {
@@ -42,10 +42,22 @@ export class SignInComponent implements OnInit {
   @Input() redirectTo = '';
   @Input() rememberMe: boolean | undefined;
 
+  /**
+   * The absolute route to redirect to from the email link. This should not
+   * be used in conjunction with "redirectToPath" (use one or the other).
+   */
+  @Input() redirectToUrl = '';
+
+  /**
+   * A route path to redirect to from the email link (as apposed to an absolute path).
+   * This path will be appended to the app's root URL and will be the URL that is
+   * targeted from the email link. This should not be used in conjunction with
+   * "redirectTo" (use one or the other).
+   */
+  @Input() redirectToPath = '';
+
   forgotPassword = false;
-  wait: WaitMessage | null = null;
   signingIn = new Subject<boolean>();
-  errorMessage = new Subject<string>();
   form = new FormGroup({
     email: new FormControl('', [Validators.required]),
     password: new FormControl(''),
@@ -53,12 +65,15 @@ export class SignInComponent implements OnInit {
     rememberMe: new FormControl(true),
   });
 
+  readonly errorMessage = signal<string | null>(null);
+  readonly wait = signal<WaitMessage | null>(null);
+  readonly verifyingOtp = signal(false);
+
   protected readonly log = inject(LogService);
   protected readonly config = inject(SupabaseConfig);
   protected readonly supabase = inject(SupabaseService);
   protected readonly routeService = inject(RouteService);
   protected readonly storage = inject(PersistentStorageService);
-  protected readonly changeDetector = inject(ChangeDetectorRef);
 
   ngOnInit(): void {
     this.title = this.title ?? this.config.signIn.title;
@@ -99,6 +114,24 @@ export class SignInComponent implements OnInit {
       : this.signInWithMagicLink();
   }
 
+  async verifyOtp(token: string): Promise<void> {
+    this.verifyingOtp.set(true);
+    const email = this.form.value.email as string;
+    const { error } = await this.supabase.client.auth.verifyOtp({
+      email,
+      token,
+      type: 'email',
+    });
+
+    if (error) {
+      this.errorMessage.set(error.message);
+      return;
+    }
+
+    const redirectUrl = this.getRedirectTo();
+    this.routeService.goTo(redirectUrl);
+  }
+
   protected revalidateAllControls(): void {
     Object.values(this.form.controls).forEach((control) =>
       control.updateValueAndValidity()
@@ -118,7 +151,7 @@ export class SignInComponent implements OnInit {
 
       if (error) {
         this.log.debug(`Sign in failed. ${error.message}`);
-        this.errorMessage.next(error.message);
+        this.errorMessage.set(error.message);
         return;
       }
 
@@ -159,16 +192,17 @@ export class SignInComponent implements OnInit {
       });
 
       if (error) {
-        this.errorMessage.next(error.message);
+        this.errorMessage.set(error.message);
         return;
       }
 
-      this.wait = {
+      this.wait.set({
         icon: 'pi pi-envelope',
         title: 'Check your email',
+        enableOtp: this.config.signIn.otpEnabled,
         message: `An email has been sent to <strong>${email}</strong> with a magic link to sign in. Simply click the link from your email and you will automatically be signed into this app.`,
-      };
-      this.changeDetector.markForCheck();
+      });
+
       this.trySaveRememberMe();
     } catch (error) {
       // TODO: Handle - @russell.green
@@ -200,5 +234,12 @@ export class SignInComponent implements OnInit {
     } else {
       this.clearRememberMe();
     }
+  }
+
+  protected getRedirectTo(): string {
+    const fallback = this.config.routes.userProfile || this.config.routes.main;
+    return this.redirectToPath
+      ? this.routeService.appendRoute(this.redirectToPath)
+      : this.redirectToUrl || this.routeService.appendRoute(fallback);
   }
 }

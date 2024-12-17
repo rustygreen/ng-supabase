@@ -8,9 +8,10 @@
   [message]="wait()"
   [showCancel]="false"
   subTitle="You can close this window"
+  [loading]="verifyingOtp()"
   (sendAgain)="register()"
+  (verifyOtp)="verifyOtp($event)"
 ></supabase-wait-message>
-
 } @else {
 <!-- Form -->
 <form [formGroup]="form" (ngSubmit)="register()">

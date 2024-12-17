@@ -87,6 +87,8 @@ interface SignInConfigProperties {
   socials?: SocialSignIn[];
   socialIconsRoot?: string;
   rememberMeStorageKey?: string;
+  otpEnabled?: boolean;
+  otpLength?: number;
   redirectTo?: string | string[] | UrlTree | null | undefined;
   onSocialSignIn?: SocialSignInFn;
 }
@@ -144,6 +146,8 @@ export class SignInConfig implements SignInConfigProperties {
   socialSignInItems: SocialSignInItem[] = [];
   redirectTo?: string | string[] | UrlTree | null | undefined;
   rememberMeStorageKey = 'supabase.auth.info';
+  otpEnabled = true;
+  otpLength = 6;
   onSocialSignIn?: SocialSignInFn;
 
   constructor(init?: Partial<SignInConfig>) {

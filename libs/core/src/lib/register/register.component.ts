@@ -47,6 +47,7 @@ export class RegisterComponent implements OnInit {
 
   readonly errorMessage = signal('');
   readonly working = signal(false);
+  readonly verifyingOtp = signal(false);
   readonly wait = signal<WaitMessage | null>(null);
   readonly form: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.required]),
@@ -99,12 +100,31 @@ export class RegisterComponent implements OnInit {
       this.wait.set({
         icon: 'pi pi-envelope',
         title: 'Check your email',
+        enableOtp: this.config.signIn.otpEnabled,
         message: `An email has been sent to <strong>${email}</strong> with a link to verify your email address. Simply click the link from your email and follow the instructions to continue.`,
       });
     } finally {
       this.form.enable();
       this.working.set(false);
     }
+  }
+
+  async verifyOtp(token: string): Promise<void> {
+    this.verifyingOtp.set(true);
+    const email = this.form.value.email as string;
+    const { error } = await this.supabase.client.auth.verifyOtp({
+      email,
+      token,
+      type: 'email',
+    });
+
+    if (error) {
+      this.onError(error);
+      return;
+    }
+
+    const redirectUrl = this.getRedirectTo();
+    this.routeService.goTo(redirectUrl);
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

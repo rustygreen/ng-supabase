@@ -3,6 +3,10 @@ import { provideRouter } from '@angular/router';
 import { ApplicationConfig } from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
+// 3rd party.
+import Aura from '@primeng/themes/aura';
+import { providePrimeNG } from 'primeng/config';
+
 // ng-supabase.
 import { provideSupabase } from '@ng-supabase/primeng';
 import { LogLevel, ALL_SOCIAL_SIGN_INS } from '@ng-supabase/core';
@@ -15,6 +19,9 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(appRoutes),
     provideAnimationsAsync(),
+    providePrimeNG({
+      theme: { preset: Aura },
+    }),
     provideSupabase({
       // NOTE: You can optionally set "project" instead of "apiUrl".
       apiUrl: localStorage.getItem(STORAGE_KEYS.apiUrl) || 'YOUR_PROJECT_URL',

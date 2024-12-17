@@ -1,21 +1,14 @@
 // Angular.
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import {
-  OnInit,
-  Component,
-  OnDestroy,
-  ChangeDetectionStrategy,
-} from '@angular/core';
+import { Component, ChangeDetectionStrategy, computed } from '@angular/core';
 
 // 3rd party.
-import { Subscription } from 'rxjs';
 import { MenuItem } from 'primeng/api';
 import { MenuModule } from 'primeng/menu';
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
 import { PasswordModule } from 'primeng/password';
-import { FieldsetModule } from 'primeng/fieldset';
 import { InputTextModule } from 'primeng/inputtext';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
@@ -24,11 +17,12 @@ import { InputIconModule } from 'primeng/inputicon';
 import { SignInComponent as CoreSignInComponent } from '@ng-supabase/core';
 
 // Local.
+import { Message } from '../messages/message';
 import { MessagesComponent } from '../messages/messages.component';
 import { SocialsGridComponent } from '../socials-grid/socials-grid.component';
+import { WaitMessageComponent } from '../wait-message/wait-message.component';
 import { ResetPasswordComponent } from '../reset-password/reset-password.component';
 import { LoadingOverlayComponent } from '../loading-overlay/loading-overlay.component';
-import { Message } from '../messages/message';
 
 let id = 0;
 
@@ -41,12 +35,12 @@ let id = 0;
     ButtonModule,
     CheckboxModule,
     PasswordModule,
-    FieldsetModule,
     IconFieldModule,
     InputIconModule,
     InputTextModule,
     MessagesComponent,
     ReactiveFormsModule,
+    WaitMessageComponent,
     SocialsGridComponent,
     ResetPasswordComponent,
     LoadingOverlayComponent,
@@ -55,12 +49,7 @@ let id = 0;
   styleUrl: './sign-in.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SignInComponent
-  extends CoreSignInComponent
-  implements OnInit, OnDestroy
-{
-  readonly id = `ng-sign-in_${id++}`;
-  messages: Message[] = [];
+export class SignInComponent extends CoreSignInComponent {
   menuItems: MenuItem[] = [
     {
       label: 'Sign in with email',
@@ -69,22 +58,14 @@ export class SignInComponent
     },
   ];
 
-  private errorMsgSubscription = Subscription.EMPTY;
+  readonly id = `ng-sign-in_${id++}`;
+  readonly messages = computed<Message[]>(() => {
+    const text = this.errorMessage() || '';
+    const message: Message = {
+      severity: 'error',
+      text,
+    };
 
-  override ngOnInit(): void {
-    super.ngOnInit();
-    this.errorMsgSubscription = this.errorMessage.subscribe((text) => {
-      const message: Message = {
-        severity: 'error',
-        text,
-      };
-
-      this.messages = text ? [message] : [];
-      this.changeDetector.markForCheck();
-    });
-  }
-
-  ngOnDestroy(): void {
-    this.errorMsgSubscription.unsubscribe();
-  }
+    return text ? [message] : [];
+  });
 }
